@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.329
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Friendzone", "Friendzone\Friendzone.csproj", "{B6450B46-8F1E-43A4-8CA7-BDBCB86C60B6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Friendzone.Web", "Friendzone\Friendzone.Web.csproj", "{B6450B46-8F1E-43A4-8CA7-BDBCB86C60B6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FriendZone.DAL", "FriendZone.DAL\FriendZone.DAL.csproj", "{FE4CF932-38B6-4491-A844-5CA021CD1845}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{B6450B46-8F1E-43A4-8CA7-BDBCB86C60B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B6450B46-8F1E-43A4-8CA7-BDBCB86C60B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B6450B46-8F1E-43A4-8CA7-BDBCB86C60B6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FE4CF932-38B6-4491-A844-5CA021CD1845}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FE4CF932-38B6-4491-A844-5CA021CD1845}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FE4CF932-38B6-4491-A844-5CA021CD1845}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FE4CF932-38B6-4491-A844-5CA021CD1845}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
