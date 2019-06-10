@@ -10,8 +10,10 @@ namespace FriendZone.DAL.Entities
         public string UserId { get; set; }
         public virtual User User { get; set; }
 
-        public Photo Avatar { get; set; }
+        public virtual Photo Avatar { get; set; }
         public DateTime Birthday { get; set; }
-        public Location Location { get; set; }
+        public virtual Location Location { get; set; }
+
+        public virtual IEnumerable<UserProfileCategory> UserProfileCategory { get; set; }
     }
 }

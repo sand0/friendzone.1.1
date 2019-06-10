@@ -8,6 +8,6 @@ namespace FriendZone.DAL.Entities
     public class User : IdentityUser
     {
         public int ProfileId { get; set; }
-        public UserProfile Profile { get; set; }
+        public virtual UserProfile Profile { get; set; }
     }
 }

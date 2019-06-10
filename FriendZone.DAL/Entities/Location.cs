@@ -7,6 +7,6 @@ namespace FriendZone.DAL.Entities
 {
     public class Location : BaseEntity
     {
-
+        public string Name { get; set; }
     }
 }

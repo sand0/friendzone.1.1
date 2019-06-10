@@ -9,5 +9,7 @@ namespace FriendZone.DAL.Entities
     {
         public string Name { get; set; }
 
+        public virtual IEnumerable<UserProfileCategory> UserProfileCategory { get; set; }
+        public virtual IEnumerable<EventCategory> EventCategory { get; set; }
     }
 }

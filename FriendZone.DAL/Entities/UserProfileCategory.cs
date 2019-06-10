@@ -4,12 +4,13 @@ using System.Text;
 
 namespace FriendZone.DAL.Entities
 {
-    public class UserProfileProfile
+    public class UserProfileCategory
     {
-        public int UserProfileId { get; set; }
-        public UserProfile UserProfile { get; set; }
+        public string UserProfileId { get; set; }
+        public virtual UserProfile UserProfile { get; set; }
 
-        public Category Category { get; set; }
         public int CategoryId { get; set; }
+        public virtual Category Category { get; set; }
+        
     }
 }

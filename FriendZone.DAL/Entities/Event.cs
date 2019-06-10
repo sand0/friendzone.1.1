@@ -8,17 +8,17 @@ namespace FriendZone.DAL.Entities
 {
     public class Event : BaseEntity
     {
-        [DataType(DataType.Date)]
+
         public DateTime DateFrom { get; set; }
-        [DataType(DataType.Date)]
         public DateTime DateTo { get; set; }
 
-        public Location Location { get; set; }
-        public Photo Photo { get; set; }
+        public virtual Location Location { get; set; }
+        public virtual Photo Photo { get; set; }
         public string Description { get; set; }
 
-        public User Owner { get; set; }
+        public string OwnerId { get; set; }
+        public virtual UserProfile Owner { get; set; }
 
-        
+        public virtual IEnumerable<EventCategory> EventCategory { get; set; }
     }
 }

@@ -24,13 +24,53 @@ namespace FriendZone.DAL.Data
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-
             base.OnModelCreating(builder);
 
             builder.Entity<IdentityRole>().HasData(
                 new IdentityRole() { Name = "Admin", NormalizedName = "Admin".ToUpper() },
                 new IdentityRole() { Name = "User", NormalizedName = "User".ToUpper() }
             );
+
+            // UserProfile-Category many-to-many
+            builder.Entity<UserProfileCategory>()
+                .HasKey(t => new { t.UserProfileId, t.CategoryId });
+            builder.Entity<UserProfileCategory>()
+                .HasOne(uc => uc.UserProfile)
+                .WithMany(u => u.UserProfileCategory)
+                .HasForeignKey(uc => uc.UserProfileId);
+            builder.Entity<UserProfileCategory>()
+                .HasOne(uc => uc.Category)
+                .WithMany(c => c.UserProfileCategory)
+                .HasForeignKey(uc => uc.CategoryId);
+
+            // Event-Category many-to-many
+            builder.Entity<EventCategory>()
+                .HasKey(t => new { t.EventId, t.CategoryId });
+            builder.Entity<EventCategory>()
+                .HasOne(ec => ec.Event)
+                .WithMany(e => e.EventCategory)
+                .HasForeignKey(ec => ec.EventId);
+            builder.Entity<EventCategory>()
+                .HasOne(ec => ec.Category)
+                .WithMany(c => c.EventCategory)
+                .HasForeignKey(uc => uc.CategoryId);
+
+            builder.Entity<UserProfile>()
+                .HasKey(up => up.UserId);
+            builder.Entity<UserProfile>()
+                .HasAlternateKey(up => up.Id);
+            builder.Entity<UserProfile>().
+                Property(u => u.Birthday).HasColumnType("date");
+
+            builder.Entity<Category>()
+                .Property(c => c.Name).IsRequired();
+
+            builder.Entity<Event>()
+                .Property(e => e.OwnerId).IsRequired();
+            builder.Entity<Event>().
+                Property(u => u.DateFrom).HasColumnType("date");
+            builder.Entity<Event>().
+                Property(u => u.DateTo).HasColumnType("date");
 
         }
     }
