@@ -5,7 +5,7 @@ using System.Text;
 
 namespace FriendZone.DAL.Interfaces
 {
-    public interface IUserProfileReposirory : IRepository<UserProfile>
+    public interface IUserProfileRepository : IRepository<UserProfile>
     {
 
     }

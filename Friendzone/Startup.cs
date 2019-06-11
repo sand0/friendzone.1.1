@@ -15,6 +15,8 @@ using FriendZone.DAL.Data;
 using Microsoft.EntityFrameworkCore;
 using FriendZone.DAL.Interfaces;
 using FriendZone.DAL.Repositories;
+using Friendzone.BLL.Interfaces;
+using Friendzone.BLL.Services;
 
 namespace Friendzone
 {
@@ -68,6 +70,10 @@ namespace Friendzone
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             services.AddTransient<IUnitOfWork, UnitOfWork>();
+            services.AddTransient<IUserProfileRepository, UserProfileRepository>();
+            services.AddTransient<ILocationRepository, LocationRepository>();
+
+            services.AddTransient<IUserService, UserService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

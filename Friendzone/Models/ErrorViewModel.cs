@@ -1,6 +1,6 @@
 using System;
 
-namespace Friendzone.Models
+namespace Friendzone.Web.Models
 {
     public class ErrorViewModel
     {

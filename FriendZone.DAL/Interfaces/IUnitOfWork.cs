@@ -14,7 +14,8 @@ namespace FriendZone.DAL.Interfaces
         RoleManager<IdentityRole> RoleManager { get; }
 
         UserManager<User> UserManager { get; }
-        IUserProfileReposirory ProfileManager { get; }
+        IUserProfileRepository ProfileManager { get; }
+
         ILocationRepository LocationRepository { get; }
 
         Task SaveAsync();

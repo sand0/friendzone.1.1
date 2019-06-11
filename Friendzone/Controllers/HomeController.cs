@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Friendzone.Web.Models;
 using Microsoft.AspNetCore.Mvc;
-using Friendzone.Models;
+
 
 namespace Friendzone.Controllers
 {

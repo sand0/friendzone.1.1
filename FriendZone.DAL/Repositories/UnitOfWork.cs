@@ -17,15 +17,15 @@ namespace FriendZone.DAL.Repositories
         public UserManager<User> UserManager { get; private set; }
         public SignInManager<User> SignInManager { get; private set; }
 
-        public IUserProfileReposirory ProfileManager { get; private set; }
+        public IUserProfileRepository ProfileManager { get; private set; }
         public ILocationRepository LocationRepository { get; private set; }
 
         public UnitOfWork(
             AppDbContext db, 
-            SignInManager<User> signInManager, 
-            UserManager<User> userManager, 
+            SignInManager<User> signInManager,
+            UserManager<User> userManager,
             RoleManager<IdentityRole> roleManager,
-            IUserProfileReposirory userProfileRepo,
+            IUserProfileRepository userProfileRepo,
             ILocationRepository locationRepo)
         {
             Database = db;
