@@ -5,8 +5,7 @@ using System.Text;
 
 namespace FriendZone.DAL.Interfaces
 {
-    public interface ILocationRepository : IRepository<Location>
+    public interface ICountryRepository : IRepository<Country>
     {
-
     }
 }

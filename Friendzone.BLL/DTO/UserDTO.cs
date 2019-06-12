@@ -12,7 +12,8 @@ namespace Friendzone.BLL.DTO
         public string Password { get; set; }
         public string UserName { get; set; }
         public DateTime Birthday { get; set; }
-        public Location Location { get; set; }
+        public string City { get; set; }
+        public string Country { get; set; }
         
         public Photo Avatar { get; set; }
         public string Phone { get; set; }

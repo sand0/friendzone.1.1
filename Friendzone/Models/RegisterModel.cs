@@ -10,12 +10,15 @@ namespace Friendzone.Web.Models
     {
         [Required]
         public string Login { get; set; }
+
         [Required]
         [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
-        [Required]
+
+        //[Required]
         [DataType(DataType.PhoneNumber)]
         public string Phone { get; set; }
+
         [Required]
         [DataType(DataType.Password)]
         public string Password { get; set; }
@@ -27,6 +30,7 @@ namespace Friendzone.Web.Models
 
         public string Country { get; set; }
         public string City_state { get; set; }
+
         [Required]
         [DataType(DataType.Date)]
         public DateTime Birthday { get; set; }

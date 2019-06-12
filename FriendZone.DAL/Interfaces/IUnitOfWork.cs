@@ -16,7 +16,8 @@ namespace FriendZone.DAL.Interfaces
         UserManager<User> UserManager { get; }
         IUserProfileRepository ProfileManager { get; }
 
-        ILocationRepository LocationRepository { get; }
+        ICountryRepository CountryRepository { get; }
+        ICityRepository CityRepository { get; }
 
         Task SaveAsync();
 

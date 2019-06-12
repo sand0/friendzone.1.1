@@ -4,14 +4,16 @@ using FriendZone.DAL.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace FriendZone.DAL.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190612062511_ChangeLocation")]
+    partial class ChangeLocation
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -41,8 +43,7 @@ namespace FriendZone.DAL.Migrations
 
                     b.Property<int>("CountryId");
 
-                    b.Property<string>("Name")
-                        .IsRequired();
+                    b.Property<string>("Name");
 
                     b.HasKey("Id");
 
@@ -57,13 +58,9 @@ namespace FriendZone.DAL.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Name")
-                        .IsRequired();
+                    b.Property<string>("Name");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("Name")
-                        .IsUnique();
 
                     b.ToTable("Countries");
                 });
@@ -74,7 +71,7 @@ namespace FriendZone.DAL.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("CityId");
+                    b.Property<int?>("CityId");
 
                     b.Property<DateTime>("DateFrom")
                         .HasColumnType("date");
@@ -240,8 +237,8 @@ namespace FriendZone.DAL.Migrations
                     b.ToTable("AspNetRoles");
 
                     b.HasData(
-                        new { Id = "d873360b-486d-407e-ac6b-84ea9da3e804", ConcurrencyStamp = "a4ed67ca-9dc1-4691-a9f1-948f2e4d082c", Name = "Admin", NormalizedName = "ADMIN" },
-                        new { Id = "711b485d-73a5-4861-b5e1-d9e32ff97eeb", ConcurrencyStamp = "32f99fae-955e-400d-8797-54b4de2b5791", Name = "User", NormalizedName = "USER" }
+                        new { Id = "7a9b730a-ece4-466b-9104-978d2ddfee8c", ConcurrencyStamp = "38be9f81-4d80-4ca5-9fe4-7a8001edc1d8", Name = "Admin", NormalizedName = "ADMIN" },
+                        new { Id = "f2079b6c-d3fc-41cf-86c3-086d657ca2d3", ConcurrencyStamp = "150fa8c9-bd67-42bb-9091-18793f67eb81", Name = "User", NormalizedName = "USER" }
                     );
                 });
 
@@ -343,8 +340,7 @@ namespace FriendZone.DAL.Migrations
                 {
                     b.HasOne("FriendZone.DAL.Entities.City", "City")
                         .WithMany()
-                        .HasForeignKey("CityId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("CityId");
 
                     b.HasOne("FriendZone.DAL.Entities.UserProfile", "Owner")
                         .WithMany()

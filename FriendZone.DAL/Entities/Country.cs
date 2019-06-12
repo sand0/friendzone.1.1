@@ -5,8 +5,10 @@ using System.Text;
 
 namespace FriendZone.DAL.Entities
 {
-    public class Location : BaseEntity
+    public class Country : BaseEntity
     {
         public string Name { get; set; }
+
+        public virtual List<City> Cities { get; set; }
     }
 }

@@ -12,7 +12,9 @@ namespace FriendZone.DAL.Entities
         public DateTime DateFrom { get; set; }
         public DateTime DateTo { get; set; }
 
-        public virtual Location Location { get; set; }
+        public int CityId { get; set; }
+        public virtual City City { get; set; }
+
         public virtual Photo Photo { get; set; }
         public string Description { get; set; }
 

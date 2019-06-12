@@ -44,19 +44,34 @@ namespace Friendzone.BLL.Services
             // Add role
             await Db.UserManager.AddToRoleAsync(user, userDto.Role);
 
-            //Location location = Db.LocationRepository.All().Where(l => l.Name == userDto.Location.Name).FirstOrDefault();
-            //if (location == null)
-            //{
-            //    location = userDto.Location;
-            //    Db.LocationRepository.Create(userDto.Location);
-            //}
-
             UserProfile userProfile = new UserProfile
             {
                 UserId = user.Id,
                 Birthday = userDto.Birthday,
-                //Location = location
             };
+            
+            if (userDto.City != null && userDto.Country != null)
+            {
+                Country country = Db.CountryRepository.All()
+                                .Where(c => c.Name == userDto.Country).FirstOrDefault()
+                                ??
+                                Db.CountryRepository.Create(new Country
+                                {
+                                    Name = userDto.Country
+                                });
+
+                City city = Db.CityRepository.All()
+                    .Where(c => (c.Name == userDto.City && c.CountryId == country.Id)).FirstOrDefault()
+                    ??
+                    Db.CityRepository.Create(new City
+                    {
+                        Name = userDto.City,
+                        Country = country
+                    });
+
+                userProfile.City = city;
+            }
+            
             Db.ProfileManager.Create(userProfile);
 
             await Db.SaveAsync();

@@ -12,7 +12,7 @@ namespace FriendZone.DAL.Entities
 
         public virtual Photo Avatar { get; set; }
         public DateTime Birthday { get; set; }
-        public virtual Location Location { get; set; }
+        public virtual City City { get; set; }
 
         public virtual IEnumerable<UserProfileCategory> UserProfileCategory { get; set; }
     }

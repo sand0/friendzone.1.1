@@ -7,9 +7,9 @@ using System.Text;
 
 namespace FriendZone.DAL.Repositories
 {
-    public class LocationRepository : Repository<Location>, ILocationRepository
+    public class CountryRepository : Repository<Country>, ICountryRepository
     {
-        public LocationRepository(AppDbContext context) : base(context)
+        public CountryRepository(AppDbContext context) : base(context)
         {
         }
     }

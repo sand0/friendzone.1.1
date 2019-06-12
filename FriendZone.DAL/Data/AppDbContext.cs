@@ -15,7 +15,8 @@ namespace FriendZone.DAL.Data
         public DbSet<Category> Categories { get; set; }
         public DbSet<Event> Events { get; set; }
         public DbSet<Photo> Photos { get; set; }
-        public DbSet<Location> Locations { get; set; }
+        public DbSet<City> Cities { get; set; }
+        public DbSet<Country> Countries { get; set; }
 
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
@@ -72,6 +73,13 @@ namespace FriendZone.DAL.Data
             builder.Entity<Event>().
                 Property(u => u.DateTo).HasColumnType("date");
 
+            builder.Entity<Country>()
+                .Property(c => c.Name).IsRequired();
+            builder.Entity<Country>()
+                .HasIndex(c => c.Name).IsUnique();
+
+            builder.Entity<City>()
+                .Property(c => c.Name).IsRequired();
         }
     }
 

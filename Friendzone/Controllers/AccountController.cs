@@ -10,11 +10,10 @@ using Friendzone.BLL.DTO;
 using Friendzone.BLL.Infrastructure;
 using Friendzone.Web.Models;
 
-namespace LetsTogether.Web.Controllers
+namespace Friendzone.Web.Controllers
 {
     public class AccountController : Controller
     {
-
         private readonly IUserService _userService;
         
         public AccountController(IUserService userService)
@@ -22,17 +21,13 @@ namespace LetsTogether.Web.Controllers
             _userService = userService;
         }
 
-        public IActionResult Login()
-        {
-            return View();
-        }
+        public IActionResult Login() => View();
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(LoginModel model)
         {
             await AdminSeedAsync();
-
 
             if (ModelState.IsValid)
             {
@@ -52,10 +47,7 @@ namespace LetsTogether.Web.Controllers
             return View(model);
         }
 
-        public IActionResult Register()
-        {
-            return View();
-        }
+        public IActionResult Register() => View();
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -69,7 +61,8 @@ namespace LetsTogether.Web.Controllers
                     Password = model.Password,
                     Role = "user",
                     Birthday = model.Birthday,
-                    Location = new Location() { Name = model.City_state },
+                    Country = model.Country,
+                    City = model.City_state,
                     Phone = model.Phone,
                     UserName = model.Login
                 };

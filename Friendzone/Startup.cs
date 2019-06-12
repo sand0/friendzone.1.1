@@ -70,8 +70,10 @@ namespace Friendzone
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             services.AddTransient<IUnitOfWork, UnitOfWork>();
+
             services.AddTransient<IUserProfileRepository, UserProfileRepository>();
-            services.AddTransient<ILocationRepository, LocationRepository>();
+            services.AddTransient<ICountryRepository, CountryRepository>();
+            services.AddTransient<ICityRepository, CityRepository>();
 
             services.AddTransient<IUserService, UserService>();
         }
