@@ -18,8 +18,7 @@ namespace FriendZone.DAL.Repositories
         public SignInManager<User> SignInManager { get; private set; }
 
         public IUserProfileRepository ProfileManager { get; private set; }
-        public ICountryRepository CountryRepository { get; private set; }
-        public ICityRepository CityRepository { get; private set; }
+        public ILocationRepository LocationRepository { get; private set; }
 
         public UnitOfWork(
             AppDbContext db, 
@@ -27,17 +26,17 @@ namespace FriendZone.DAL.Repositories
             UserManager<User> userManager,
             RoleManager<IdentityRole> roleManager,
             IUserProfileRepository userProfileRepo,
-            ICountryRepository countryRepo,
-            ICityRepository ciyRepo)
+            ILocationRepository locationRepo)
         {
             Database = db;
             UserManager = userManager;
             RoleManager = roleManager;
             SignInManager = signInManager;
-            CountryRepository = countryRepo;
-            CityRepository = ciyRepo;
-            ProfileManager = userProfileRepo;
         }
+
+        private IRepository<Category> categoryRepository;
+        public IRepository<Category> CategoryRepository =>
+            categoryRepository ?? (categoryRepository = new CategoryRepository(Database));
 
 
         public void Dispose()

@@ -43,7 +43,7 @@ namespace Friendzone
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddIdentity<User, IdentityRole>()
-                .AddDefaultUI()
+                //.AddDefaultUI()
                 .AddEntityFrameworkStores<AppDbContext>();
             services.Configure<IdentityOptions>(options =>
             {
