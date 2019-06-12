@@ -30,24 +30,14 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
-                    @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
-                    {
-                        <li><a asp-area="" asp-controller="Admin" asp-action="Index">Admin page</a></li>
-                    }
-                    <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
-                    <li>
-                        @if (User.Identity.IsAuthenticated)
-                        {
-                            @Html.ActionLink("Account", "Profile", "Account")
-                        }
-                        else
-                        {
-                            @Html.ActionLink("Login", "Login", "Account")
-                        }
-                    </li>
+                    <li><a asp-area="" asp-controller="Admin" asp-action="Index">Admin Index</a></li>
+                    <li><a asp-area="" asp-controller="Home" asp-action="Index">UI Home page</a></li>
 
+                    <li><a asp-controller="Admin" asp-action="Users">Users</a></li>
+                    <li><a asp-controller="Admin" asp-action="Events">Users</a></li>
+                    <li><a asp-controller="Admin" asp-action="Categoties">Users</a></li>
+
+                    <li><a asp-area="" asp-controller="Account" asp-action="Logout">Logout</a></li>
                 </ul>
             </div>
         </div>
@@ -56,6 +46,10 @@
     <partial name="_CookieConsentPartial" />
 
     <div class="container body-content">
+        <div class="col-sm-3" id="admin-nav" >
+            
+        </div>
+        
         @RenderBody()
         <hr />
         <footer>

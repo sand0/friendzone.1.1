@@ -32,9 +32,11 @@ namespace FriendZone.DAL.Repositories
             UserManager = userManager;
             RoleManager = roleManager;
             SignInManager = signInManager;
-            LocationRepository = locationRepo;
-            ProfileManager = userProfileRepo;
         }
+
+        private IRepository<Category> categoryRepository;
+        public IRepository<Category> CategoryRepository =>
+            categoryRepository ?? (categoryRepository = new CategoryRepository(Database));
 
 
         public void Dispose()
