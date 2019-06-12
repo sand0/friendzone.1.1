@@ -7,7 +7,7 @@ using System.Text;
 
 namespace FriendZone.DAL.Repositories
 {
-    public class CategoryRepository : Repository<Category>, ICategoryReposiroty
+    public class CategoryRepository : Repository<Category>, ICategoryRepository
     {
         public CategoryRepository(AppDbContext context) : base(context)
         {

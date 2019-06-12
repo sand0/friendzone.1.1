@@ -1,31 +1,36 @@
-﻿@model IEnumerable<FriendZone.DAL.Entities.UserProfile>
+﻿@model IEnumerable<Friendzone.BLL.DTO.ProfileDTO>
 
 @{
-    ViewData["Title"] = "Users";
+    ViewData["Title"] = "View";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
-<h2>Users</h2>
+<h2>View</h2>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a href="" class="btn btn-primary">Create New</a>
 </p>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.User)
+                @Html.DisplayNameFor(model => model.Email)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.User.UserName)
+                @Html.DisplayNameFor(model => model.UserName)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.User.Email)
+                @Html.DisplayNameFor(model => model.PhoneNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AvatarUrl)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Birthday)
             </th>
-
+            <th>
+                @Html.DisplayNameFor(model => model.City)
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -33,25 +38,24 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.User.Id)
+                @Html.DisplayFor(modelItem => item.Email)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.User.UserName)
+                @Html.DisplayFor(modelItem => item.UserName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.User.Email)
+                @Html.DisplayFor(modelItem => item.PhoneNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AvatarUrl)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Birthday)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Id)
+                @Html.DisplayFor(modelItem => item.City) (@Html.DisplayFor(modelItem => item.Country))
             </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.UserId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.UserId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.UserId">Delete</a>
-            </td>
+            <td> Mark as Admin | Delete </td>
         </tr>
 }
     </tbody>

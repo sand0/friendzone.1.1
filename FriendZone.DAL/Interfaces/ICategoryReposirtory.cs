@@ -5,7 +5,7 @@ using System.Text;
 
 namespace FriendZone.DAL.Interfaces
 {
-    public interface ICategoryReposiroty : IRepository<Category>
+    public interface ICategoryRepository : IRepository<Category>
     {
     }
 }

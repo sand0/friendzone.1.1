@@ -10,14 +10,12 @@ namespace FriendZone.DAL.Interfaces
     public interface IUnitOfWork
     {
         SignInManager<User> SignInManager { get; }
-
         RoleManager<IdentityRole> RoleManager { get; }
-
         UserManager<User> UserManager { get; }
-        IUserProfileRepository ProfileManager { get; }
-
+        IUserProfileRepository ProfileRepository { get; }
         ICountryRepository CountryRepository { get; }
         ICityRepository CityRepository { get; }
+        ICategoryRepository CategoryRepository { get; }
 
         Task SaveAsync();
 

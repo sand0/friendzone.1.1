@@ -8,6 +8,6 @@ namespace Friendzone.BLL.Interfaces
 {
     public interface IProfileService : IDisposable
     {
-        List<UserProfile> Users(); 
+        List<ProfileDTO> Users(); 
     }
 }

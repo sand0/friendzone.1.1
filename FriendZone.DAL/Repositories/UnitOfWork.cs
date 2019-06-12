@@ -11,32 +11,43 @@ namespace FriendZone.DAL.Repositories
 {
     public class UnitOfWork : IUnitOfWork
     {
-        private readonly AppDbContext Database;
+        private readonly AppDbContext Db;
+
+        private IUserProfileRepository _profileRepository;
+        private ICountryRepository _countryRepository;
+        private ICityRepository _cityRepository;
+        private ICategoryRepository _categoryRepository;
 
         public RoleManager<IdentityRole> RoleManager { get; private set; }
         public UserManager<User> UserManager { get; private set; }
         public SignInManager<User> SignInManager { get; private set; }
 
-        public IUserProfileRepository ProfileManager { get; private set; }
-        public ILocationRepository LocationRepository { get; private set; }
-
+        
         public UnitOfWork(
             AppDbContext db, 
             SignInManager<User> signInManager,
             UserManager<User> userManager,
-            RoleManager<IdentityRole> roleManager,
-            IUserProfileRepository userProfileRepo,
-            ILocationRepository locationRepo)
+            RoleManager<IdentityRole> roleManager)
         {
-            Database = db;
+            Db = db;
+
             UserManager = userManager;
             RoleManager = roleManager;
             SignInManager = signInManager;
         }
 
-        private IRepository<Category> categoryRepository;
-        public IRepository<Category> CategoryRepository =>
-            categoryRepository ?? (categoryRepository = new CategoryRepository(Database));
+
+        public IUserProfileRepository ProfileRepository =>
+            _profileRepository ?? (_profileRepository = new UserProfileRepository(Db));
+
+        public ICountryRepository CountryRepository =>
+            _countryRepository ?? (_countryRepository = new CountryRepository(Db));
+
+        public ICityRepository CityRepository =>
+            _cityRepository ?? (_cityRepository = new CityRepository(Db));
+
+        public ICategoryRepository CategoryRepository =>
+           _categoryRepository ?? (_categoryRepository = new CategoryRepository(Db));
 
 
         public void Dispose()
@@ -62,7 +73,7 @@ namespace FriendZone.DAL.Repositories
 
         public async Task SaveAsync()
         {
-            await Database.SaveChangesAsync();
+            await Db.SaveChangesAsync();
         }
     }
     

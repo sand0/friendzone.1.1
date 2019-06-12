@@ -71,8 +71,8 @@ namespace Friendzone.BLL.Services
 
                 userProfile.City = city;
             }
-            
-            Db.ProfileManager.Create(userProfile);
+
+            Db.ProfileRepository.Create(userProfile);
 
             await Db.SaveAsync();
 
