@@ -7,6 +7,6 @@ namespace FriendZone.DAL.Interfaces
 {
     public interface IUserProfileRepository : IRepository<UserProfile>
     {
-
+        
     }
 }

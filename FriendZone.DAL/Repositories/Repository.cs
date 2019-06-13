@@ -23,6 +23,7 @@ namespace FriendZone.DAL.Repositories
 
         public IQueryable<T> All() => Entities;
 
+        public IEnumerable<T> Filrer(Func<T, bool> predicate) => Entities.Where(predicate);
 
         public T Get(int id) => Entities.SingleOrDefault(e => e.Id == id);
 
