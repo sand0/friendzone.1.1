@@ -69,6 +69,8 @@ namespace Friendzone
             services.AddMvc()
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
+            services.AddHttpContextAccessor();
+
             services.AddTransient<IUnitOfWork, UnitOfWork>();
 
             services.AddTransient<IUserService, UserService>();

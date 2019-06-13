@@ -47,6 +47,22 @@ namespace Friendzone.BLL.Services
             return responce;
         }
 
+        public ProfileDTO GetProfile(User u)
+        {
+
+            var p = Db.ProfileRepository.Get(u.ProfileId);
+            
+            return new ProfileDTO
+            {
+                UserName = u.UserName,
+                Email = u.Email,
+                PhoneNumber = u.PhoneNumber,
+                Birthday = p.Birthday,
+                City = p.City.Name,
+                Country = p.City.Country.Name,
+                AvatarUrl = p.Avatar?.Url
+            };
+        }
 
         public void Dispose()
         {

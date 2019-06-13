@@ -57,9 +57,9 @@ namespace FriendZone.DAL.Data
                 .HasForeignKey(uc => uc.CategoryId);
 
             builder.Entity<UserProfile>()
-                .HasKey(up => up.UserId);
+                .HasKey(up => up.Id);
             builder.Entity<UserProfile>()
-                .HasAlternateKey(up => up.Id);
+                .HasAlternateKey(up => up.UserId);
             builder.Entity<UserProfile>().
                 Property(u => u.Birthday).HasColumnType("date");
 

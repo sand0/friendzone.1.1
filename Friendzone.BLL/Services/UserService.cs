@@ -3,9 +3,11 @@ using Friendzone.BLL.Infrastructure;
 using Friendzone.BLL.Interfaces;
 using FriendZone.DAL.Entities;
 using FriendZone.DAL.Interfaces;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
@@ -86,6 +88,11 @@ namespace Friendzone.BLL.Services
             var result = await Db.SignInManager.PasswordSignInAsync(user.UserName, userDto.Password, false, lockoutOnFailure: false);
             
             return result.Succeeded;
+        }
+
+        public async Task<User> GetCurrentUserAsync(HttpContext context)
+        {
+            return await Db.UserManager.GetUserAsync(context.User);
         }
 
         public async Task SignOutAsync()
