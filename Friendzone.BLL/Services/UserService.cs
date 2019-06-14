@@ -76,6 +76,14 @@ namespace Friendzone.BLL.Services
 
             Db.ProfileRepository.Create(userProfile);
 
+            user.ProfileId = userProfile.Id;
+
+            result = await Db.UserManager.UpdateAsync(user);
+            if (result.Errors.Count() > 0)
+            {
+                return new OperationDetails(false, result.Errors.FirstOrDefault().ToString(), "");
+            }
+
             await Db.SaveAsync();
 
             return new OperationDetails(true, "Registration succeeded", "");

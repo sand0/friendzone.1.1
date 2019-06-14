@@ -20,7 +20,7 @@ namespace FriendZone.DAL.Data
 
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
-            Database.Migrate();
+            //Database.Migrate();
         }
 
         protected override void OnModelCreating(ModelBuilder builder)
@@ -57,11 +57,15 @@ namespace FriendZone.DAL.Data
                 .HasForeignKey(uc => uc.CategoryId);
 
             builder.Entity<UserProfile>()
-                .HasKey(up => up.Id);
+                .HasKey(up => up.UserId);
             builder.Entity<UserProfile>()
-                .HasAlternateKey(up => up.UserId);
+                .HasAlternateKey(up => up.Id);
+            builder.Entity<UserProfile>()
+                .Property(up => up.Id)
+                .ValueGeneratedOnAdd();
             builder.Entity<UserProfile>().
                 Property(u => u.Birthday).HasColumnType("date");
+
 
             builder.Entity<Category>()
                 .Property(c => c.Name).IsRequired();

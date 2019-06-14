@@ -58,8 +58,8 @@ namespace Friendzone.BLL.Services
                 Email = u.Email,
                 PhoneNumber = u.PhoneNumber,
                 Birthday = p.Birthday,
-                City = p.City.Name,
-                Country = p.City.Country.Name,
+                City = p.City?.Name,
+                Country = p.City?.Country.Name,
                 AvatarUrl = p.Avatar?.Url
             };
         }

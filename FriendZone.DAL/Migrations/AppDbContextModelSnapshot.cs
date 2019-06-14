@@ -15,7 +15,7 @@ namespace FriendZone.DAL.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.11-servicing-32099")
+                .HasAnnotation("ProductVersion", "2.1.4-rtm-31024")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -190,7 +190,9 @@ namespace FriendZone.DAL.Migrations
 
                     b.Property<int?>("CityId");
 
-                    b.Property<int>("Id");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.HasKey("UserId");
 
@@ -240,8 +242,8 @@ namespace FriendZone.DAL.Migrations
                     b.ToTable("AspNetRoles");
 
                     b.HasData(
-                        new { Id = "d873360b-486d-407e-ac6b-84ea9da3e804", ConcurrencyStamp = "a4ed67ca-9dc1-4691-a9f1-948f2e4d082c", Name = "Admin", NormalizedName = "ADMIN" },
-                        new { Id = "711b485d-73a5-4861-b5e1-d9e32ff97eeb", ConcurrencyStamp = "32f99fae-955e-400d-8797-54b4de2b5791", Name = "User", NormalizedName = "USER" }
+                        new { Id = "0478a784-c14a-4059-ae3e-9a5da88c2963", ConcurrencyStamp = "5f4e9692-625b-4b2b-b4eb-4c8b2cf2f726", Name = "Admin", NormalizedName = "ADMIN" },
+                        new { Id = "829e39eb-7a34-4b6f-90cf-a4bd93808b8b", ConcurrencyStamp = "fe08635c-3e64-4e87-bf1d-2697d3300ad3", Name = "User", NormalizedName = "USER" }
                     );
                 });
 
