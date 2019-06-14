@@ -16,6 +16,7 @@ namespace FriendZone.DAL.Interfaces
         ICountryRepository CountryRepository { get; }
         ICityRepository CityRepository { get; }
         ICategoryRepository CategoryRepository { get; }
+        IPhotoRepository PhotoRepository { get; }
 
         Task SaveAsync();
 

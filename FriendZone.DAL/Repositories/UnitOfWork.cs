@@ -17,6 +17,7 @@ namespace FriendZone.DAL.Repositories
         private ICountryRepository _countryRepository;
         private ICityRepository _cityRepository;
         private ICategoryRepository _categoryRepository;
+        private IPhotoRepository _photoRepository;
 
         public RoleManager<IdentityRole> RoleManager { get; private set; }
         public UserManager<User> UserManager { get; private set; }
@@ -49,6 +50,8 @@ namespace FriendZone.DAL.Repositories
         public ICategoryRepository CategoryRepository =>
            _categoryRepository ?? (_categoryRepository = new CategoryRepository(Db));
 
+        public IPhotoRepository repository =>
+            _photoRepository ?? (_photoRepository = new PhotoRepository(Db));
 
         public void Dispose()
         {

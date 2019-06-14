@@ -49,9 +49,8 @@ namespace Friendzone.BLL.Services
 
         public ProfileDTO GetProfile(User u)
         {
-
             var p = Db.ProfileRepository.Get(u.ProfileId);
-            
+
             return new ProfileDTO
             {
                 UserName = u.UserName,
