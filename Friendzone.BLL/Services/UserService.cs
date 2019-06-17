@@ -1,12 +1,18 @@
-﻿using Entities;
-using Friendzone.Core.DTO;
-using Friendzone.Core.Infrastructure;
-using Friendzone.Core.IRepositories;
-using Friendzone.Core.IServices;
+﻿using Friendzone.BLL.DTO;
+using Friendzone.BLL.Infrastructure;
+using Friendzone.BLL.Interfaces;
+using FriendZone.DAL.Entities;
+using FriendZone.DAL.Interfaces;
+using Microsoft.AspNetCore.Http;
+using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
+using System.Text;
 using System.Threading.Tasks;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
-namespace Friendzone.Core.Services
+namespace Friendzone.BLL.Services
 {
     public class UserService : IUserService
     {
@@ -70,6 +76,14 @@ namespace Friendzone.Core.Services
 
             Db.ProfileRepository.Create(userProfile);
 
+            user.ProfileId = userProfile.Id;
+
+            result = await Db.UserManager.UpdateAsync(user);
+            if (result.Errors.Count() > 0)
+            {
+                return new OperationDetails(false, result.Errors.FirstOrDefault().ToString(), "");
+            }
+
             await Db.SaveAsync();
 
             return new OperationDetails(true, "Registration succeeded", "");
@@ -82,6 +96,11 @@ namespace Friendzone.Core.Services
             var result = await Db.SignInManager.PasswordSignInAsync(user.UserName, userDto.Password, false, lockoutOnFailure: false);
             
             return result.Succeeded;
+        }
+
+        public async Task<User> GetCurrentUserAsync(HttpContext context)
+        {
+            return await Db.UserManager.GetUserAsync(context.User);
         }
 
         public async Task SignOutAsync()

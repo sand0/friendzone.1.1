@@ -7,6 +7,7 @@ namespace Friendzone.Core.IServices
 {
     public interface IProfileService : IDisposable
     {
-        List<ProfileDTO> Users(); 
+        List<ProfileDTO> Users();
+        ProfileDTO GetProfile(User u);
     }
 }

@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Friendzone.DAL.Migrations
 {
-    public partial class InitDb : Migration
+    public partial class recreateDb : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -62,16 +62,16 @@ namespace Friendzone.DAL.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Locations",
+                name: "Countries",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(nullable: true)
+                    Name = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Locations", x => x.Id);
+                    table.PrimaryKey("PK_Countries", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -194,14 +194,35 @@ namespace Friendzone.DAL.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Cities",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Name = table.Column<string>(nullable: false),
+                    CountryId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Cities", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Cities_Countries_CountryId",
+                        column: x => x.CountryId,
+                        principalTable: "Countries",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "UserProfiles",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false),
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     UserId = table.Column<string>(nullable: false),
                     AvatarId = table.Column<int>(nullable: true),
                     Birthday = table.Column<DateTime>(type: "date", nullable: false),
-                    LocationId = table.Column<int>(nullable: true)
+                    CityId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -214,9 +235,9 @@ namespace Friendzone.DAL.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_UserProfiles_Locations_LocationId",
-                        column: x => x.LocationId,
-                        principalTable: "Locations",
+                        name: "FK_UserProfiles_Cities_CityId",
+                        column: x => x.CityId,
+                        principalTable: "Cities",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
@@ -235,7 +256,7 @@ namespace Friendzone.DAL.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     DateFrom = table.Column<DateTime>(type: "date", nullable: false),
                     DateTo = table.Column<DateTime>(type: "date", nullable: false),
-                    LocationId = table.Column<int>(nullable: true),
+                    CityId = table.Column<int>(nullable: false),
                     PhotoId = table.Column<int>(nullable: true),
                     Description = table.Column<string>(nullable: true),
                     OwnerId = table.Column<string>(nullable: false)
@@ -244,11 +265,11 @@ namespace Friendzone.DAL.Migrations
                 {
                     table.PrimaryKey("PK_Events", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Events_Locations_LocationId",
-                        column: x => x.LocationId,
-                        principalTable: "Locations",
+                        name: "FK_Events_Cities_CityId",
+                        column: x => x.CityId,
+                        principalTable: "Cities",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Events_UserProfiles_OwnerId",
                         column: x => x.OwnerId,
@@ -314,12 +335,12 @@ namespace Friendzone.DAL.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "0c5d19ff-1054-4772-9e95-6c891cbcd479", "7fa5991b-e5ff-4e76-90c5-d6752e5c8171", "Admin", "ADMIN" });
+                values: new object[] { "0478a784-c14a-4059-ae3e-9a5da88c2963", "5f4e9692-625b-4b2b-b4eb-4c8b2cf2f726", "Admin", "ADMIN" });
 
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "0d9dddd8-4bbe-46ad-8bc5-79f5f622fe40", "56c76ea9-83ad-4520-bfcd-0c1999166498", "User", "USER" });
+                values: new object[] { "829e39eb-7a34-4b6f-90cf-a4bd93808b8b", "fe08635c-3e64-4e87-bf1d-2697d3300ad3", "User", "USER" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -361,14 +382,25 @@ namespace Friendzone.DAL.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Cities_CountryId",
+                table: "Cities",
+                column: "CountryId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Countries_Name",
+                table: "Countries",
+                column: "Name",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_EventCategory_CategoryId",
                 table: "EventCategory",
                 column: "CategoryId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Events_LocationId",
+                name: "IX_Events_CityId",
                 table: "Events",
-                column: "LocationId");
+                column: "CityId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Events_OwnerId",
@@ -391,9 +423,9 @@ namespace Friendzone.DAL.Migrations
                 column: "AvatarId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_UserProfiles_LocationId",
+                name: "IX_UserProfiles_CityId",
                 table: "UserProfiles",
-                column: "LocationId");
+                column: "CityId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -435,10 +467,13 @@ namespace Friendzone.DAL.Migrations
                 name: "Photos");
 
             migrationBuilder.DropTable(
-                name: "Locations");
+                name: "Cities");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "Countries");
         }
     }
 }
