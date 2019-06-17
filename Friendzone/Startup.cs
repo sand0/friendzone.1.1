@@ -1,22 +1,18 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using FriendZone.DAL.Entities;
-using FriendZone.DAL.Data;
+using Friendzone.DAL.Data;
 using Microsoft.EntityFrameworkCore;
-using FriendZone.DAL.Interfaces;
-using FriendZone.DAL.Repositories;
-using Friendzone.BLL.Interfaces;
-using Friendzone.BLL.Services;
+using Friendzone.DAL.Repositories;
+using Friendzone.Core.Services;
+using Friendzone.Core.IRepositories;
+using Friendzone.Core.IServices;
+using Entities;
 
 namespace Friendzone
 {

@@ -1,10 +1,9 @@
-﻿using Friendzone.BLL.DTO;
-using FriendZone.DAL.Entities;
+﻿using Friendzone.Core.DTO;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Friendzone.BLL.Interfaces
+namespace Friendzone.Core.IServices
 {
     public interface IProfileService : IDisposable
     {

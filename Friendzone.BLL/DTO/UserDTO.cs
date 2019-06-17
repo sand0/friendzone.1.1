@@ -1,9 +1,7 @@
-﻿using FriendZone.DAL.Entities;
+﻿using Entities;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace Friendzone.BLL.DTO
+namespace Friendzone.Core.DTO
 {
     public class UserDTO
     {

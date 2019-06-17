@@ -1,12 +1,12 @@
-﻿using FriendZone.DAL.Data;
-using FriendZone.DAL.Interfaces;
+﻿using Entities;
+using Friendzone.Core.IRepositories;
+using Friendzone.DAL.Data;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
-namespace FriendZone.DAL.Repositories
+namespace Friendzone.DAL.Repositories
 {
     public class Repository<T> : IRepository<T> where T : BaseEntity
     {

@@ -1,9 +1,9 @@
-﻿using FriendZone.DAL.Entities;
+﻿using Entities;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace FriendZone.DAL.Interfaces
+namespace Friendzone.Core.IRepositories
 {
     public interface ICityRepository : IRepository<City>
     {

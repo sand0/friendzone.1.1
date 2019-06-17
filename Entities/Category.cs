@@ -1,9 +1,6 @@
-﻿using FriendZone.DAL.Data;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
-namespace FriendZone.DAL.Entities
+namespace Entities
 {
     public class Category : BaseEntity
     {

@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Identity;
-using Friendzone.BLL.Interfaces;
-using FriendZone.DAL.Entities;
-using Friendzone.BLL.DTO;
-using Friendzone.BLL.Infrastructure;
 using Friendzone.Web.Models;
+using Friendzone.Core.IServices;
+using Friendzone.Core.DTO;
+using Friendzone.Core.Infrastructure;
 
 namespace Friendzone.Web.Controllers
 {

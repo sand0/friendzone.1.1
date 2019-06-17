@@ -1,11 +1,11 @@
-﻿using Friendzone.BLL.DTO;
-using Friendzone.BLL.Infrastructure;
+﻿using Friendzone.Core.DTO;
+using Friendzone.Core.Infrastructure;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Friendzone.BLL.Interfaces
+namespace Friendzone.Core.IServices
 {
     public interface IUserService : IDisposable
     {

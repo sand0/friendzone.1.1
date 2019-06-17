@@ -1,9 +1,4 @@
-﻿using FriendZone.DAL.Data;
-using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace FriendZone.DAL.Entities
+﻿namespace Entities
 {
     public class City : BaseEntity
     {

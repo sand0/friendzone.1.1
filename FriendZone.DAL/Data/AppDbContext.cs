@@ -1,4 +1,4 @@
-﻿using FriendZone.DAL.Entities;
+﻿using Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -6,7 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace FriendZone.DAL.Data
+namespace Friendzone.DAL.Data
 {
     public class AppDbContext : IdentityDbContext<User>
     {

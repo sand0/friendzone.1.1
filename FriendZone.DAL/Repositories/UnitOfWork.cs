@@ -1,13 +1,11 @@
-﻿using FriendZone.DAL.Data;
-using FriendZone.DAL.Entities;
-using FriendZone.DAL.Interfaces;
+﻿using Entities;
+using Friendzone.Core.IRepositories;
+using Friendzone.DAL.Data;
 using Microsoft.AspNetCore.Identity;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
-namespace FriendZone.DAL.Repositories
+namespace Friendzone.DAL.Repositories
 {
     public class UnitOfWork : IUnitOfWork
     {

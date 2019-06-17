@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Friendzone.BLL.DTO
+namespace Friendzone.Core.DTO
 {
     public class ProfileDTO
     {

@@ -1,10 +1,7 @@
-﻿using FriendZone.DAL.Data;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Text;
 
-namespace FriendZone.DAL.Entities
+namespace Entities
 {
     public class Event : BaseEntity
     {

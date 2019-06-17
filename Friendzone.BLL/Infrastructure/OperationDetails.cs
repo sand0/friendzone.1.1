@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Friendzone.BLL.Infrastructure
+namespace Friendzone.Core.Infrastructure
 {
     public class OperationDetails
     {

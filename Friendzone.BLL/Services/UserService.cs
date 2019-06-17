@@ -1,16 +1,12 @@
-﻿using Friendzone.BLL.DTO;
-using Friendzone.BLL.Infrastructure;
-using Friendzone.BLL.Interfaces;
-using FriendZone.DAL.Entities;
-using FriendZone.DAL.Interfaces;
-using System;
-using System.Collections.Generic;
+﻿using Entities;
+using Friendzone.Core.DTO;
+using Friendzone.Core.Infrastructure;
+using Friendzone.Core.IRepositories;
+using Friendzone.Core.IServices;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
-namespace Friendzone.BLL.Services
+namespace Friendzone.Core.Services
 {
     public class UserService : IUserService
     {

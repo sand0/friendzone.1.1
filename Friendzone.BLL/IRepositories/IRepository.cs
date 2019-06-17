@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace FriendZone.DAL.Interfaces
+namespace Friendzone.Core.IRepositories
 {
     public interface IRepository<T> where T : class
     {

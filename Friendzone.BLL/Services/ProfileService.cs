@@ -1,15 +1,11 @@
-﻿using Friendzone.BLL.DTO;
-using Friendzone.BLL.Interfaces;
-using FriendZone.DAL.Entities;
-using FriendZone.DAL.Interfaces;
+﻿using Friendzone.Core.DTO;
+using Friendzone.Core.IRepositories;
+using Friendzone.Core.IServices;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Friendzone.BLL.Services
+namespace Friendzone.Core.Services
 {
     public class ProfileService : IProfileService
     {
