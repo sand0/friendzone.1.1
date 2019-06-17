@@ -1,9 +1,9 @@
 ﻿using Entities;
 using Friendzone.DAL.Data;
 using Friendzone.DAL.Repositories;
-using FriendZone.DAL.Interfaces;
+using Friendzone.Core.IRepositories;
 
-namespace FriendZone.DAL.Repositories
+namespace Friendzone.DAL.Repositories
 {
     public class PhotoRepository : Repository<Photo>, IPhotoRepository
     {

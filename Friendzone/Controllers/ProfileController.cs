@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Entities;
-using Friendzone.BLL.Interfaces;
 using Friendzone.Core.IServices;
 using Friendzone.Web.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -34,7 +33,7 @@ namespace Friendzone.Web.Controllers
                 UserName = profile.UserName,
                 Email =profile.Email,
                 //City =
-                Age = profile.Birthday.Year - DateTime.Today.Year
+                Age = DateTime.Today.Year - profile.Birthday.Year
             };
 
             return View(viewModel);

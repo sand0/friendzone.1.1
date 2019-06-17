@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Http;
 using System;
 using System.Threading.Tasks;
 
-namespace Friendzone.BLL.Interfaces
+namespace Friendzone.Core.IServices
 {
     public interface IUserService : IDisposable
     {

@@ -1,14 +1,12 @@
-﻿using FriendZone.DAL.Entities;
-using FriendZone.DAL.Interfaces;
+﻿using Entities;
+using Friendzone.Core.IRepositories;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Text;
 using System.Threading.Tasks;
 
-namespace Friendzone.BLL.Services
+namespace Friendzone.Core.Services
 {
     public class FileService
     {

@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.28307.329
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Friendzone.Web", "Friendzone\Friendzone.Web.csproj", "{B6450B46-8F1E-43A4-8CA7-BDBCB86C60B6}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FriendZone.DAL", "FriendZone.DAL\FriendZone.DAL.csproj", "{FE4CF932-38B6-4491-A844-5CA021CD1845}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Friendzone.DAL", "FriendZone.DAL\Friendzone.DAL.csproj", "{FE4CF932-38B6-4491-A844-5CA021CD1845}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Friendzone.Core", "Friendzone.BLL\Friendzone.Core.csproj", "{70F9FE26-EDCF-4E74-B336-58EAF81B16BE}"
 EndProject

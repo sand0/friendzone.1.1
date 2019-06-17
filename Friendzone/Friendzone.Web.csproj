@@ -12,7 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Friendzone.BLL\Friendzone.Core.csproj" />
-    <ProjectReference Include="..\FriendZone.DAL\FriendZone.DAL.csproj" />
+    <ProjectReference Include="..\FriendZone.DAL\Friendzone.DAL.csproj" />
   </ItemGroup>
 
   <ItemGroup>

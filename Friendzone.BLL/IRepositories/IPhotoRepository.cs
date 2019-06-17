@@ -1,7 +1,6 @@
 ﻿using Entities;
-using Friendzone.Core.IRepositories;
 
-namespace FriendZone.Core.IRepositories
+namespace Friendzone.Core.IRepositories
 {
     public interface IPhotoRepository : IRepository<Photo>
     {

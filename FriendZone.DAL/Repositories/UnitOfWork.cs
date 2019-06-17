@@ -48,7 +48,7 @@ namespace Friendzone.DAL.Repositories
         public ICategoryRepository CategoryRepository =>
            _categoryRepository ?? (_categoryRepository = new CategoryRepository(Db));
 
-        public IPhotoRepository repository =>
+        public IPhotoRepository PhotoRepository =>
             _photoRepository ?? (_photoRepository = new PhotoRepository(Db));
 
         public void Dispose()

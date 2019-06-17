@@ -1,4 +1,5 @@
-﻿using Friendzone.Core.DTO;
+﻿using Entities;
+using Friendzone.Core.DTO;
 using Friendzone.Core.IRepositories;
 using Friendzone.Core.IServices;
 using Microsoft.EntityFrameworkCore;
