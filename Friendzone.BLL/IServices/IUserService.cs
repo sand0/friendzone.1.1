@@ -1,11 +1,8 @@
-﻿using Friendzone.BLL.DTO;
-using Friendzone.BLL.Infrastructure;
-using FriendZone.DAL.Entities;
+﻿using Entities;
+using Friendzone.Core.DTO;
+using Friendzone.Core.Infrastructure;
 using Microsoft.AspNetCore.Http;
 using System;
-using System.Collections.Generic;
-using System.Security.Claims;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Friendzone.BLL.Interfaces

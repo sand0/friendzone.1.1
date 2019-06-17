@@ -1,9 +1,7 @@
-﻿using FriendZone.DAL.Entities;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Entities;
+using Friendzone.Core.IRepositories;
 
-namespace FriendZone.DAL.Interfaces
+namespace FriendZone.Core.IRepositories
 {
     public interface IPhotoRepository : IRepository<Photo>
     {

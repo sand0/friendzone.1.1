@@ -1,9 +1,7 @@
-﻿using FriendZone.DAL.Data;
-using FriendZone.DAL.Entities;
+﻿using Entities;
+using Friendzone.DAL.Data;
+using Friendzone.DAL.Repositories;
 using FriendZone.DAL.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace FriendZone.DAL.Repositories
 {

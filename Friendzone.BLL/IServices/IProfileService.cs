@@ -1,4 +1,5 @@
-﻿using Friendzone.Core.DTO;
+﻿using Entities;
+using Friendzone.Core.DTO;
 using System;
 using System.Collections.Generic;
 using System.Text;
