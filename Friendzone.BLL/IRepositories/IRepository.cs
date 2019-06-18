@@ -8,7 +8,8 @@ namespace Friendzone.Core.IRepositories
     public interface IRepository<T> where T : class
     {
         IQueryable<T> All();
-        IEnumerable<T> Filrer(Func<T, bool> predicate);
+        //IEnumerable<T> Filrer(Func<T, bool> predicate);
+        IQueryable<T> Filrer(Func<T, bool> predicate);
         T Get(int id);
 
         T Create(T entity);

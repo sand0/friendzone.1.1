@@ -3,10 +3,12 @@ using System.Threading.Tasks;
 using Entities;
 using Friendzone.Core.IServices;
 using Friendzone.Web.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Friendzone.Web.Controllers
 {
+    [Authorize]
     public class ProfileController : Controller
     {
         private IProfileService _profileService;
@@ -31,12 +33,17 @@ namespace Friendzone.Web.Controllers
             {
                 AvatarUrl = profile.AvatarUrl,
                 UserName = profile.UserName,
-                Email =profile.Email,
+                Email = profile.Email,
                 //City =
                 Age = DateTime.Today.Year - profile.Birthday.Year
             };
 
             return View(viewModel);
         }
+
+        //public IActionResult Edit(int id)
+        //{
+        //    
+        //}
     }
 }
