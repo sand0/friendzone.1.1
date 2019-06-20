@@ -22,9 +22,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.PhoneNumber)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.AvatarUrl)
-            </th>
+
             <th>
                 @Html.DisplayNameFor(model => model.Birthday)
             </th>
@@ -46,14 +44,12 @@
             <td>
                 @Html.DisplayFor(modelItem => item.PhoneNumber)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.AvatarUrl)
-            </td>
+
             <td>
                 @Html.DisplayFor(modelItem => item.Birthday)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.City) (@Html.DisplayFor(modelItem => item.Country))
+                @Html.DisplayFor(modelItem => item.City) 
             </td>
             <td> Mark as Admin | Delete </td>
         </tr>

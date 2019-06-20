@@ -4,16 +4,19 @@ using Friendzone.Web.Models;
 using Friendzone.Core.IServices;
 using Friendzone.Core.DTO;
 using Friendzone.Core.Infrastructure;
+using AutoMapper;
 
 namespace Friendzone.Web.Controllers
 {
     public class AccountController : Controller
     {
         private readonly IUserService _userService;
-        
-        public AccountController(IUserService userService)
+        private readonly IMapper _mapper;
+
+        public AccountController(IUserService userService, IMapper mapper)
         {
             _userService = userService;
+            _mapper = mapper;
         }
 
         public IActionResult Login() => View();
@@ -26,11 +29,8 @@ namespace Friendzone.Web.Controllers
 
             if (ModelState.IsValid)
             {
-                UserDTO userDto = new UserDTO
-                {
-                    Email = model.Email,
-                    Password = model.Password
-                };
+                UserDTO userDto = _mapper.Map<LoginModel, UserDTO>(model);
+
                 bool auth = await _userService.AuthenticateAsync(userDto);
                 if (auth)
                 {
@@ -50,17 +50,7 @@ namespace Friendzone.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                UserDTO userDto = new UserDTO
-                {
-                    Email = model.Email,
-                    Password = model.Password,
-                    Role = "user",
-                    Birthday = model.Birthday,
-                    Country = model.Country,
-                    City = model.City_state,
-                    Phone = model.Phone,
-                    UserName = model.Login
-                };
+                UserDTO userDto = _mapper.Map<RegisterModel, UserDTO>(model);
 
                 OperationDetails operationDetails = await _userService.CreateAsync(userDto);
 

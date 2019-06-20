@@ -23,34 +23,34 @@ namespace Friendzone.Core.Services
 
         public Category Get(int id) => Db.CategoryRepository.Get(id);
 
-        public async Task<OperationDetails> CreateAsync(Category categoty)
+        public async Task<OperationDetails> CreateAsync(Category category)
         {
-            if (Db.CategoryRepository.All().Any(c => c.Name == categoty.Name))
+            if (Db.CategoryRepository.All().Any(c => c.Name == category.Name))
             {
                 return new OperationDetails(false, "The same category is already exist in database", "");
             }
 
-            Db.CategoryRepository.Create(categoty);
+            Db.CategoryRepository.Create(category);
 
             await Db.SaveAsync();
 
             return new OperationDetails(true, "", "");
         }
 
-        public async Task<OperationDetails> EditAsync(Category categoty)
+        public async Task<OperationDetails> EditAsync(Category category)
         {
-            if (categoty.Id == 0)
+            if (category.Id == 0)
             {
                 return new OperationDetails(false, "Id field is '0'", "");
             }
 
-            Category oldCategory = Db.CategoryRepository.Get(categoty.Id);
+            Category oldCategory = Db.CategoryRepository.Get(category.Id);
             if (oldCategory == null)
             {
                 return new OperationDetails(false, "Not found", "");
             }
 
-            oldCategory.Name = categoty.Name;
+            oldCategory.Name = category.Name;
 
             await Db.SaveAsync();
 

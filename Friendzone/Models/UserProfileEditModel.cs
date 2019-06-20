@@ -1,11 +1,13 @@
 ﻿using Entities;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace Friendzone.Core.DTO
+namespace Friendzone.Web.Models
 {
-    public class ProfileDTO
+    public class UserProfileEditModel
     {
         public int Id { get; set; }
 
@@ -13,10 +15,11 @@ namespace Friendzone.Core.DTO
         public string UserName { get; set; }
         public string PhoneNumber { get; set; }
 
-        public Photo Avatar { get; set; }
+        public IFormFile Avatar { get; set; }
         public DateTime Birthday { get; set; }
+
         public City City { get; set; }
-        
+
 
     }
 }

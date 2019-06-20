@@ -15,17 +15,17 @@ namespace Friendzone.Web.Controllers
     [Route("api/[controller]")]
     public class CategoryController : Controller
     {
-        public ICategoryService CategoryService { get; set; }
+        private ICategoryService _categoryService;
 
         public CategoryController(ICategoryService categoryService)
         {
-            CategoryService = categoryService;
+            _categoryService = categoryService;
         }
 
         [HttpGet("")]
         public IActionResult All()
         {
-            return Ok(CategoryService.GetAllCategories());
+            return Ok(_categoryService.GetAllCategories());
         }
 
         [HttpPost("[action]/")]
@@ -34,8 +34,8 @@ namespace Friendzone.Web.Controllers
             if (ModelState.IsValid)
             {
                 var result = category.Id == 0 ?
-                    await CategoryService.CreateAsync(category) :
-                    await CategoryService.EditAsync(category);
+                    await _categoryService.CreateAsync(category) :
+                    await _categoryService.EditAsync(category);
 
                 if (result.Succedeed)
                 {
@@ -50,7 +50,7 @@ namespace Friendzone.Web.Controllers
         {
             if (id != 0)
             {
-                OperationDetails result = await CategoryService.DeleteAsync(id);
+                OperationDetails result = await _categoryService.DeleteAsync(id);
                 if (result.Succedeed)
                 {
                     return Ok();

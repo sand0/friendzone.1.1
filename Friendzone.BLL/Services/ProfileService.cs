@@ -1,20 +1,25 @@
-﻿using Entities;
+﻿using AutoMapper;
+using Entities;
 using Friendzone.Core.DTO;
+using Friendzone.Core.Infrastructure;
 using Friendzone.Core.IRepositories;
 using Friendzone.Core.IServices;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Friendzone.Core.Services
 {
     public class ProfileService : IProfileService
     {
+        private IMapper _mapper;
         public IUnitOfWork Db { get; set; }
 
-        public ProfileService(IUnitOfWork uow)
+        public ProfileService(IUnitOfWork uow, IMapper mapper)
         {
             Db = uow;
+            _mapper = mapper;
         }
 
 
@@ -35,9 +40,7 @@ namespace Friendzone.Core.Services
                     Email = p.User.Email,
                     PhoneNumber = p.User.PhoneNumber,
                     Birthday = p.Birthday,
-                    City = p.City.Name,
-                    Country = p.City.Country.Name,
-                    AvatarUrl = p.Avatar?.Url
+                    City = p.City,
                 });
             }
 
@@ -46,18 +49,34 @@ namespace Friendzone.Core.Services
 
         public ProfileDTO GetProfile(User u)
         {
-            var p = Db.ProfileRepository.Get(u.ProfileId);
+            var profileDto = Db.ProfileRepository.GetProfileWithAllFields(u.ProfileId);
 
-            return new ProfileDTO
+            return _mapper.Map<UserProfile, ProfileDTO>(profileDto);
+        }
+
+        public async Task<OperationDetails> EditAsync(ProfileDTO profile)
+        {
+            if(profile.Id == 0)
             {
-                UserName = u.UserName,
-                Email = u.Email,
-                PhoneNumber = u.PhoneNumber,
-                Birthday = p.Birthday,
-                City = p.City?.Name,
-                Country = p.City?.Country.Name,
-                AvatarUrl = p.Avatar?.Url
-            };
+                return new OperationDetails(false, "Id field is '0'", "");
+            }
+
+            UserProfile oldProfile = Db.ProfileRepository.GetProfileWithAllFields(profile.Id);
+            if (oldProfile == null)
+            {
+                return new OperationDetails(false, "Not found", "");
+            }
+
+            //update
+            //oldProfile.Name = profile.Name;
+            UserProfile newProfile = _mapper.Map<ProfileDTO, UserProfile>(profile);
+
+            oldProfile = newProfile;
+
+            await Db.SaveAsync();
+
+            return new OperationDetails(true, "", "");
+            
         }
 
         public void Dispose()

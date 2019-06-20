@@ -14,6 +14,9 @@ using Friendzone.Core.IRepositories;
 using Friendzone.Core.IServices;
 using Entities;
 using Swashbuckle.AspNetCore.Swagger;
+using AutoMapper;
+using Friendzone.Web.Mapper;
+using System.Reflection;
 
 namespace Friendzone
 {
@@ -65,7 +68,9 @@ namespace Friendzone
 
             services.AddMvc()
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-            
+
+            services.AddAutoMapper(typeof(MappingProfile).GetTypeInfo().Assembly);
+
             // Register the Swagger generator, defining 1 or more Swagger documents
             services.AddSwaggerGen(c =>
             {

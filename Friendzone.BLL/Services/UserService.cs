@@ -1,4 +1,5 @@
-﻿using Entities;
+﻿using AutoMapper;
+using Entities;
 using Friendzone.Core.DTO;
 using Friendzone.Core.Infrastructure;
 using Friendzone.Core.IRepositories;
@@ -11,11 +12,13 @@ namespace Friendzone.Core.Services
 {
     public class UserService : IUserService
     {
+        private readonly IMapper _mapper;
         public IUnitOfWork Db { get; set; }
 
-        public UserService(IUnitOfWork uow)
+        public UserService(IUnitOfWork uow, IMapper mapper)
         {
             Db = uow;
+            _mapper = mapper;
         }
 
         public async Task<OperationDetails> CreateAsync(UserDTO userDto)
@@ -25,12 +28,8 @@ namespace Friendzone.Core.Services
                 return new OperationDetails(false, "Emali is exist in database", "Email");
             }
 
-            User user = new User
-            {
-                Email = userDto.Email,
-                UserName = userDto.UserName,
-                PhoneNumber = userDto.Phone
-            };
+            User user = _mapper.Map<UserDTO, User>(userDto);
+
             var result = await Db.UserManager.CreateAsync(user, userDto.Password);
 
             if (result.Errors.Count() > 0)
@@ -41,33 +40,30 @@ namespace Friendzone.Core.Services
             // Add role
             await Db.UserManager.AddToRoleAsync(user, userDto.Role);
 
-            UserProfile userProfile = new UserProfile
-            {
-                UserId = user.Id,
-                Birthday = userDto.Birthday,
-            };
+            UserProfile userProfile = new UserProfile { UserId = user.Id };
             
-            if (userDto.City != null && userDto.Country != null)
-            {
-                Country country = Db.CountryRepository.All()
-                                .Where(c => c.Name == userDto.Country).FirstOrDefault()
-                                ??
-                                Db.CountryRepository.Create(new Country
-                                {
-                                    Name = userDto.Country
-                                });
+            //
+            //if (userDto.City != null && userDto.Country != null)
+            //{
+            //    Country country = Db.CountryRepository.All()
+            //                    .Where(c => c.Name == userDto.Country).FirstOrDefault()
+            //                    ??
+            //                    Db.CountryRepository.Create(new Country
+            //                    {
+            //                        Name = userDto.Country
+            //                    });
 
-                City city = Db.CityRepository.All()
-                    .Where(c => (c.Name == userDto.City && c.CountryId == country.Id)).FirstOrDefault()
-                    ??
-                    Db.CityRepository.Create(new City
-                    {
-                        Name = userDto.City,
-                        Country = country
-                    });
+            //    City city = Db.CityRepository.All()
+            //        .Where(c => (c.Name == userDto.City && c.CountryId == country.Id)).FirstOrDefault()
+            //        ??
+            //        Db.CityRepository.Create(new City
+            //        {
+            //            Name = userDto.City,
+            //            Country = country
+            //        });
 
-                userProfile.City = city;
-            }
+            //    userProfile.City = city;
+            //}
 
             Db.ProfileRepository.Create(userProfile);
 
