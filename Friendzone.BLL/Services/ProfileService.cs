@@ -22,41 +22,48 @@ namespace Friendzone.Core.Services
             _mapper = mapper;
         }
 
-
-        public List<ProfileDTO> Users()
+        public IEnumerable<ProfileDTO> Users()
         {
-            var profiles = Db.ProfileRepository.All()
-                .Include(p => p.User)
-                .Include(p => p.City)
-                    .ThenInclude(c => c.Country)
-                .ToList();
-            var responce = new List<ProfileDTO>();
-
-            foreach (var p in profiles)
-            {
-                responce.Add(new ProfileDTO
-                {
-                    UserName = p.User.UserName,
-                    Email = p.User.Email,
-                    PhoneNumber = p.User.PhoneNumber,
-                    Birthday = p.Birthday,
-                    City = p.City,
-                });
-            }
+            var profiles = Db.ProfileRepository.AllProfilesWithAllFields();
+            var responce = _mapper.Map<IEnumerable<UserProfile>, IEnumerable<ProfileDTO>>(profiles);
 
             return responce;
         }
 
         public ProfileDTO GetProfile(User u)
         {
-            var profileDto = Db.ProfileRepository.GetProfileWithAllFields(u.ProfileId);
+            var profile = Db.ProfileRepository.GetProfileWithAllFields(u.ProfileId);
 
-            return _mapper.Map<UserProfile, ProfileDTO>(profileDto);
+            return _mapper.Map<UserProfile, ProfileDTO>(profile);
         }
 
-        public async Task<OperationDetails> EditAsync(ProfileDTO profile)
+        public ProfileDTO GetById(int id)
         {
-            if(profile.Id == 0)
+            var profile = Db.ProfileRepository.GetProfileWithAllFields(id);
+
+            return _mapper.Map<UserProfile, ProfileDTO>(profile);
+        }
+
+        public async Task<OperationDetails> ChangeAvatar(int profileId, Photo newAvatar)
+        {
+            var profile = Db.ProfileRepository.GetProfileWithAllFields(profileId);
+            if (profile == null)
+            {
+                return new OperationDetails(false, "Profile not found", "");
+            }
+
+            int idForDelete = profile.Avatar == null ? 0 : profile.Avatar.Id;
+
+            profile.Avatar = newAvatar;
+            Db.ProfileRepository.Update(profile);
+
+            await Db.SaveAsync();
+            return new OperationDetails(true, $"{idForDelete}", "Id photo for delete:");
+        }
+
+        public async Task<OperationDetails> ChangeProfileInfo(ProfileDTO profile)
+        {
+            if (profile.Id == 0)
             {
                 return new OperationDetails(false, "Id field is '0'", "");
             }
@@ -67,16 +74,14 @@ namespace Friendzone.Core.Services
                 return new OperationDetails(false, "Not found", "");
             }
 
-            //update
-            //oldProfile.Name = profile.Name;
-            UserProfile newProfile = _mapper.Map<ProfileDTO, UserProfile>(profile);
+            oldProfile.City = profile.City;
+            oldProfile.Birthday = profile.Birthday;
 
-            oldProfile = newProfile;
+            Db.ProfileRepository.Update(oldProfile);
 
             await Db.SaveAsync();
 
             return new OperationDetails(true, "", "");
-            
         }
 
         public void Dispose()

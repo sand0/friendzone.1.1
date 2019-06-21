@@ -10,8 +10,11 @@ namespace Friendzone.Core.IServices
 {
     public interface IProfileService : IDisposable
     {
-        List<ProfileDTO> Users();
+        IEnumerable<ProfileDTO> Users();
         ProfileDTO GetProfile(User u);
-        Task<OperationDetails> EditAsync(ProfileDTO profile);
+        ProfileDTO GetById(int id);
+        
+        Task<OperationDetails> ChangeAvatar(int profileId, Photo newAvatar);
+        Task<OperationDetails> ChangeProfileInfo(ProfileDTO profile);
     }
 }

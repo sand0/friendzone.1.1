@@ -81,6 +81,7 @@ namespace Friendzone
 
             services.AddTransient<IUnitOfWork, UnitOfWork>();
 
+            services.AddTransient<IPhotoService, PhotoService>();
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<IProfileService, ProfileService>();
             services.AddTransient<ICategoryService, CategoryService>();

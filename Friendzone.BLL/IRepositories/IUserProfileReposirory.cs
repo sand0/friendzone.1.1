@@ -8,5 +8,6 @@ namespace Friendzone.Core.IRepositories
     public interface IUserProfileRepository : IRepository<UserProfile>
     {
         UserProfile GetProfileWithAllFields(int id);
+        IEnumerable<UserProfile> AllProfilesWithAllFields();
     }
 }
