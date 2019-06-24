@@ -22,11 +22,11 @@ namespace Friendzone.Core.Services
 
         public IEnumerable<Country> GetCountries() => Db.CountryRepository.All();
 
-        public Country GetByName(string name) => Db.CountryRepository.GetByName(name);
+        public Country GetByName(string name) => Db.CountryRepository.Get(c => c.Name == name).FirstOrDefault();
 
         public async Task<OperationDetails> CreateCountryAsync(Country country)
         {
-            if (Db.CountryRepository.GetByName(country.Name) != null)
+            if (Db.CountryRepository.Get(c => c.Name == country.Name) != null)
             {
                 return new OperationDetails ( false, "Country is already exist", "" );
             }

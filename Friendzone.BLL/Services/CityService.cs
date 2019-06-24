@@ -20,7 +20,7 @@ namespace Friendzone.Core.Services
         }
 
 
-        public IQueryable<City> GetCitiesByCountryId(int id) => Db.CityRepository.GetByCountryId(id);
+        public IQueryable<City> GetCitiesByCountryId(int id) => Db.CityRepository.Get(c => c.CountryId == id).AsQueryable();
 
         public IQueryable<City> GetAll() => Db.CityRepository.All();
 

@@ -75,7 +75,7 @@ namespace Friendzone.Web.Controllers
             return Ok(_cityService.GetCitiesByCountryId(countryId));
         }
 
-        // this one don't work in swagger. 
+        // This one don't work in swagger. 
         [HttpGet("{countryName}/[action]/")]
         public IActionResult Cities(string countryName)
         {

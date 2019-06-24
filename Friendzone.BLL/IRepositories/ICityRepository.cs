@@ -8,6 +8,5 @@ namespace Friendzone.Core.IRepositories
 {
     public interface ICityRepository : IRepository<City>
     {
-        IQueryable<City> GetByCountryId(int id);
     }
 }

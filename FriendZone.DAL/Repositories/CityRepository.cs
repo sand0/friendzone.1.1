@@ -11,9 +11,5 @@ namespace Friendzone.DAL.Repositories
         {
         }
 
-        public IQueryable<City> GetByCountryId(int id)
-        {
-            return Entities.Where(c => c.CountryId == id);
-        }
     }
 }

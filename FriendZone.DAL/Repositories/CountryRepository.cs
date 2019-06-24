@@ -11,6 +11,5 @@ namespace Friendzone.DAL.Repositories
         {
         }
 
-        public Country GetByName(string name) => Entities.Where(c => c.Name.ToUpper() == name.ToUpper()).FirstOrDefault();
     }
 }

@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 
 namespace Friendzone.DAL.Repositories
 {
@@ -23,7 +24,36 @@ namespace Friendzone.DAL.Repositories
 
         public IQueryable<T> All() => Entities;
 
-        public IQueryable<T> Filrer(Func<T, bool> predicate) => Entities.Where(predicate) as IQueryable<T>;
+
+        // TODO: add pagination to this one!
+        public virtual IEnumerable<T> Get(
+            Expression<Func<T, bool>> filter = null,
+            Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null,
+            string includeProperties = "")
+        {
+            IQueryable<T> query = Entities;
+
+            if (filter != null)
+            {
+                query = query.Where(filter);
+            }
+
+            foreach (var includeProperty in includeProperties.Split
+                (new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+            {
+                query = query.Include(includeProperty);
+            }
+
+            if (orderBy != null)
+            {
+                return orderBy(query).ToList();
+            }
+            else
+            {
+                return query.ToList();
+            }
+        }
+
 
         public T Get(int id) => Entities.SingleOrDefault(e => e.Id == id);
 
