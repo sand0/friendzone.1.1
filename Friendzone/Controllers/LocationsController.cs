@@ -26,6 +26,9 @@ namespace Friendzone.Web.Controllers
             _cityService = citySrv;
         }
 
+
+        //Methods for countries CRUD:
+
         [HttpGet("[action]")]
         public IActionResult Countries()
         {
@@ -64,13 +67,13 @@ namespace Friendzone.Web.Controllers
         }
 
 
+        //Methods for cities CRUD:
 
         [HttpGet("country:{countryId:int}/[action]")]
         public IActionResult Cities(int countryId)
         {
             return Ok(_cityService.GetCitiesByCountryId(countryId));
         }
-
 
         // this one don't work in swagger. 
         [HttpGet("{countryName}/[action]/")]

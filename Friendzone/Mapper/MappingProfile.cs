@@ -40,6 +40,7 @@ namespace Friendzone.Web.Mapper
             CreateMap<ProfileDTO, UserProfileViewModel>()
                 .ForMember(dest => dest.UserName, opts => opts.MapFrom(src => src.UserName))
                 .ForMember(dest => dest.Email, opts => opts.MapFrom(src => src.Email))
+                .ForMember(dest => dest.AvatarUrl, opts => opts.MapFrom(src => src.AvaUrl))
                 .ForMember(dest => dest.Age, opts => opts.MapFrom(src => (DateTime.Today.Year - src.Birthday.Year)));
 
             CreateMap<ProfileDTO, UserProfile>()
@@ -54,7 +55,8 @@ namespace Friendzone.Web.Mapper
                 .ForMember(dest => dest.Birthday, opts => opts.MapFrom(src => src.Birthday))
                 .ForMember(dest => dest.UserName, opts => opts.MapFrom(src => src.User.UserName))
                 .ForMember(dest => dest.Email, opts => opts.MapFrom(src => src.User.Email))
-                .ForMember(dest => dest.PhoneNumber, opts => opts.MapFrom(src => src.User.PhoneNumber));
+                .ForMember(dest => dest.PhoneNumber, opts => opts.MapFrom(src => src.User.PhoneNumber))
+                .ForMember(dest => dest.AvaUrl, opts => opts.MapFrom(src => src.Avatar.Url));
 
         }
     }
