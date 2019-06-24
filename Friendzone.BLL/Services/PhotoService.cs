@@ -2,6 +2,9 @@
 using Friendzone.Core.Infrastructure;
 using Friendzone.Core.IRepositories;
 using Friendzone.Core.IServices;
+using ImageProcessor;
+using ImageProcessor.Imaging;
+using ImageProcessor.Imaging.Formats;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using System;
@@ -44,6 +47,8 @@ namespace Friendzone.Core.Services
             //
             //
 
+
+
             using (var fileStream = new FileStream(_appEnvironment.WebRootPath + path, FileMode.Create))
             {
                 await uploadedFile.CopyToAsync(fileStream);
@@ -57,8 +62,6 @@ namespace Friendzone.Core.Services
             return photo;
         }
 
-
-
         public async Task Delete(int id)
         {
             var photo = Db.PhotoRepository.Get(id);
@@ -70,5 +73,58 @@ namespace Friendzone.Core.Services
             }
             
         }
+
+
+        /*
+        What can I use from this?  
+            */
+        public byte[] Resize(byte[] originalImage, int width)
+        {
+            using (var originalImageStream = new MemoryStream(originalImage))
+            {
+                using (var resultImage = new MemoryStream())
+                {
+                    using (var imageFactory = new ImageFactory())
+                    {
+                        var createdImage = imageFactory
+                                .Load(originalImageStream);
+
+                        if (createdImage.Image.Width > width)
+                        {
+                            createdImage = createdImage
+                                .Resize(new ResizeLayer(new Size(width, 0), ResizeMode.Max));
+                        }
+
+                        createdImage
+                            .Format(new JpegFormat { /* Quality = WebApplicationConstants.ImageQuality*/ })
+                            .Save(resultImage);
+                    }
+
+                    return resultImage.GetBuffer();
+                }
+            }
+        }
+
+        // 
+        public void ResizeAndSaveImage(IFormFile originalImage, int[] widths, string originalImageFilePath, string extension)
+        {
+            byte[] imgData;
+            using (var reader = new BinaryReader(originalImage.OpenReadStream()))
+            {
+                imgData = reader.ReadBytes((int)originalImage.Length);
+            }
+
+            var filePath = originalImageFilePath.Substring(0, originalImageFilePath.Length - extension.Length);
+
+            foreach (var width in widths)
+            {
+                var resizedImageFilePath = filePath + "_" + width + extension;
+                byte[] resizedImageBytes = this.Resize(imgData, width);
+                MemoryStream ms = new MemoryStream(resizedImageBytes);
+                Image resizedImage = Image.FromStream(ms);
+                resizedImage.Save(resizedImageFilePath);
+            }
+        }
     }
+
 }
