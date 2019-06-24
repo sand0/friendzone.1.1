@@ -41,6 +41,8 @@ namespace Friendzone.Web.Controllers
             return View(viewModel);
         }
 
+        // for testing...
+
         [HttpGet]
         public async Task<IActionResult> ChangeAvatar()
         {

@@ -30,7 +30,7 @@ namespace Friendzone.Core.Services
                 throw (new Exception("File not found!"));
             }
             
-            // Validate vfor an image:
+            // Validate for an image:
             if (!uploadedFile.IsImage())
             {
                 throw (new Exception("File is not correct Image!"));
@@ -38,10 +38,11 @@ namespace Friendzone.Core.Services
 
             string path = "/files/" + uploadedFile.FileName;
 
+
             // TODO: image resizing ...
-
-
-            
+            //
+            //
+            //
 
             using (var fileStream = new FileStream(_appEnvironment.WebRootPath + path, FileMode.Create))
             {

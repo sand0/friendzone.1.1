@@ -85,6 +85,9 @@ namespace Friendzone
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<IProfileService, ProfileService>();
             services.AddTransient<ICategoryService, CategoryService>();
+            services.AddTransient<ICityService, CityService>();
+            services.AddTransient<ICountryService, CountryService>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
