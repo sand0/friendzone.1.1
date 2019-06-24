@@ -96,12 +96,19 @@ namespace Friendzone.Web.Controllers
 
             if (ModelState.IsValid && (model.ProfileId == currentUser.ProfileId || User.IsInRole("Admin")))
             {
-                var newAvatar = await _photoService.AddPhoto(model.Image);
-                var result = await _profileService.ChangeAvatar(model.ProfileId, newAvatar);
-                if (result.Succedeed)
+                try
                 {
-                    await _photoService.Delete(Int32.Parse(result.Message));
-                    return Ok(newAvatar.Url);
+                    var newAvatar = await _photoService.AddPhoto(model.Image);
+                    var result = await _profileService.ChangeAvatar(model.ProfileId, newAvatar);
+                    if (result.Succedeed)
+                    {
+                        await _photoService.Delete(Int32.Parse(result.Message));
+                        return Ok(newAvatar.Url);
+                    }
+                }
+                catch (Exception e)
+                {
+                    return BadRequest(e.Message);
                 }
             }
                 

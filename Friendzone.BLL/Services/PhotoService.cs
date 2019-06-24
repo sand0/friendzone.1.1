@@ -1,9 +1,11 @@
 ﻿using Entities;
+using Friendzone.Core.Infrastructure;
 using Friendzone.Core.IRepositories;
 using Friendzone.Core.IServices;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using System;
+using System.Drawing;
 using System.IO;
 using System.Threading.Tasks;
 
@@ -27,9 +29,19 @@ namespace Friendzone.Core.Services
             {
                 throw (new Exception("File not found!"));
             }
-            // TODO: image validation and convertation
+            
+            // Validate vfor an image:
+            if (!uploadedFile.IsImage())
+            {
+                throw (new Exception("File is not correct Image!"));
+            }
 
             string path = "/files/" + uploadedFile.FileName;
+
+            // TODO: image resizing ...
+
+
+            
 
             using (var fileStream = new FileStream(_appEnvironment.WebRootPath + path, FileMode.Create))
             {
@@ -43,6 +55,8 @@ namespace Friendzone.Core.Services
 
             return photo;
         }
+
+
 
         public async Task Delete(int id)
         {

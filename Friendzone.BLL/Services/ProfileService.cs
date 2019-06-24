@@ -4,7 +4,6 @@ using Friendzone.Core.DTO;
 using Friendzone.Core.Infrastructure;
 using Friendzone.Core.IRepositories;
 using Friendzone.Core.IServices;
-using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
