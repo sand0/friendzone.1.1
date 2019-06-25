@@ -87,6 +87,7 @@ namespace Friendzone
             services.AddTransient<ICategoryService, CategoryService>();
             services.AddTransient<ICityService, CityService>();
             services.AddTransient<ICountryService, CountryService>();
+            services.AddTransient<IEventService, EventService>();
 
         }
 

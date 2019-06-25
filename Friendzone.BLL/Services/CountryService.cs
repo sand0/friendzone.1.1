@@ -26,7 +26,7 @@ namespace Friendzone.Core.Services
 
         public async Task<OperationDetails> CreateCountryAsync(Country country)
         {
-            if (Db.CountryRepository.Get(c => c.Name == country.Name) != null)
+            if (Db.CountryRepository.Get(c => c.Name == country.Name).Count() != 0)
             {
                 return new OperationDetails ( false, "Country is already exist", "" );
             }

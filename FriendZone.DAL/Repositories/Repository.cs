@@ -65,7 +65,7 @@ namespace Friendzone.DAL.Repositories
                 throw new ArgumentNullException(nameof(entity));
             }
             Entities.Add(entity);
-            _context.SaveChanges();
+            //_context.SaveChanges();
             return entity;
         }
 
@@ -77,7 +77,7 @@ namespace Friendzone.DAL.Repositories
                 throw new ArgumentNullException(nameof(entity));
             }
             _context.Entry(entity).State = EntityState.Modified;
-            _context.SaveChanges();
+            //_context.SaveChanges();
             return entity;
         }
 
@@ -91,7 +91,7 @@ namespace Friendzone.DAL.Repositories
             if (Entities.Contains(entity))
             {
                 Entities.Remove(entity);
-                _context.SaveChanges();
+                //_context.SaveChanges();
                 return true;
             }
             return false;

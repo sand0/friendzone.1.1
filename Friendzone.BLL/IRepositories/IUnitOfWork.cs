@@ -14,6 +14,7 @@ namespace Friendzone.Core.IRepositories
         ICityRepository CityRepository { get; }
         ICategoryRepository CategoryRepository { get; }
         IPhotoRepository PhotoRepository { get; }
+        IEventRepository EventRepository { get; }
 
         Task SaveAsync();
 

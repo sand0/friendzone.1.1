@@ -58,6 +58,25 @@ namespace Friendzone.Web.Mapper
                 .ForMember(dest => dest.PhoneNumber, opts => opts.MapFrom(src => src.User.PhoneNumber))
                 .ForMember(dest => dest.AvaUrl, opts => opts.MapFrom(src => src.Avatar.Url));
 
+            CreateMap<EventEditViewModel, EventDTO>()
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
+                .ForMember(dest => dest.Title, opt => opt.MapFrom(src => src.Title))
+                .ForMember(dest => dest.DateFrom, opt => opt.MapFrom(src => src.DateFrom))
+                .ForMember(dest => dest.DateTo, opt => opt.MapFrom(src => src.DateTo))
+                .ForMember(dest => dest.CityId, opt => opt.MapFrom(src => src.CityId))
+                .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))
+                .ForMember(dest => dest.OwnerId, opt => opt.MapFrom(src => src.OwnerId))
+                .ForMember(dest => dest.CategoriyIds, opt => opt.MapFrom(src => src.CategoryIds));
+
+            CreateMap<EventDTO, Event>()
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
+                .ForMember(dest => dest.Title, opt => opt.MapFrom(src => src.Title))
+                .ForMember(dest => dest.DateFrom, opt => opt.MapFrom(src => src.DateFrom))
+                .ForMember(dest => dest.DateTo, opt => opt.MapFrom(src => src.DateTo))
+                .ForMember(dest => dest.CityId, opt => opt.MapFrom(src => src.CityId))
+                .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))
+                .ForMember(dest => dest.OwnerId, opt => opt.MapFrom(src => src.OwnerId));
+
         }
     }
 }

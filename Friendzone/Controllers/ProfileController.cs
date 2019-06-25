@@ -44,7 +44,7 @@ namespace Friendzone.Web.Controllers
         // for testing...
 
         [HttpGet]
-        public async Task<IActionResult> ChangeAvatar()
+        public async Task<IActionResult> ChangeAva()
         {
             User currentUser = await _userService.GetCurrentUserAsync(HttpContext);
             ChangeAvatarViewModel model = new ChangeAvatarViewModel { ProfileId = currentUser.ProfileId };

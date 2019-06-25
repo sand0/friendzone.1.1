@@ -16,6 +16,7 @@ namespace Friendzone.DAL.Repositories
         private ICityRepository _cityRepository;
         private ICategoryRepository _categoryRepository;
         private IPhotoRepository _photoRepository;
+        private IEventRepository _eventRepository;
 
         public RoleManager<IdentityRole> RoleManager { get; private set; }
         public UserManager<User> UserManager { get; private set; }
@@ -50,6 +51,9 @@ namespace Friendzone.DAL.Repositories
 
         public IPhotoRepository PhotoRepository =>
             _photoRepository ?? (_photoRepository = new PhotoRepository(Db));
+
+        public IEventRepository EventRepository =>
+            _eventRepository ?? (_eventRepository = new EventRepository(Db));
 
         public void Dispose()
         {
