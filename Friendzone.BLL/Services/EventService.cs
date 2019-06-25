@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
+using System.Linq;
 
 namespace Friendzone.Core.Services
 {
@@ -24,6 +25,13 @@ namespace Friendzone.Core.Services
 
 
         public IEnumerable<Event> Events() => Db.EventRepository.All();
+
+        public Event Events(int id) //=> Db.EventRepository.Get(e => e.Id == id, null ,"Owner,City,EventCategory").FirstOrDefault();
+        {
+            var ev = Db.EventRepository.Get(e => e.Id == id, null, "City,EventCategory,Owner").FirstOrDefault();
+
+            return ev;
+        }
 
         public async Task<OperationDetails> CreateEventAsync(EventDTO eventDto)
         {

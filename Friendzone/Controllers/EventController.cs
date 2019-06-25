@@ -31,6 +31,14 @@ namespace Friendzone.Web.Controllers
             return Ok(_eventService.Events());
         }
 
+        [HttpGet("{id:int}")]
+        public IActionResult Get(int id)
+        {
+            Event ev = _eventService.Events(id);
+            EventDetailsViewModel model = _mapper.Map<Event, EventDetailsViewModel>(ev);
+            return Ok(model);
+        }
+
         [HttpPost("[action]")]
         public async Task<IActionResult> Edit(EventEditViewModel model)
         {

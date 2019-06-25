@@ -77,6 +77,15 @@ namespace Friendzone.Web.Mapper
                 .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))
                 .ForMember(dest => dest.OwnerId, opt => opt.MapFrom(src => src.OwnerId));
 
+            CreateMap<Event, EventDetailsViewModel>()
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
+                .ForMember(dest => dest.Title, opt => opt.MapFrom(src => src.Title))
+                .ForMember(dest => dest.DateFrom, opt => opt.MapFrom(src => src.DateFrom.ToString("yyyy-MM-dd")))
+                .ForMember(dest => dest.DateTo, opt => opt.MapFrom(src => src.DateTo.ToString("yyyy-MM-dd")))
+                .ForMember(dest => dest.City, opt => opt.MapFrom(src => src.City.Name))
+                .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))
+                .ForMember(dest => dest.Owner, opt => opt.MapFrom(src => src.Owner));
+
         }
     }
 }
