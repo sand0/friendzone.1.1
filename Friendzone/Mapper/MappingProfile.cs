@@ -95,7 +95,7 @@ namespace Friendzone.Web.Mapper
                 .ForMember(dest => dest.DateTo, opt => opt.MapFrom(src => src.DateTo.ToString("yyyy-MM-dd")))
                 .ForMember(dest => dest.City, opt => opt.MapFrom(src => src.City.Name))
                 .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))
-                .ForMember(dest => dest.Categories, opt => opt.MapFrom(src => src.CategoriyNames))
+                .ForMember(dest => dest.Categories, opt => opt.MapFrom(src => src.CategoryNames))
                 .ForMember(dest => dest.OwnerUserId, opt => opt.MapFrom(src => src.OwnerUserId));
         }
     }

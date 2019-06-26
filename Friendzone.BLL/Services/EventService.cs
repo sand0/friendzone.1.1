@@ -33,36 +33,24 @@ namespace Friendzone.Core.Services
 
         public EventDTO Events(int id)
         {
-            var ev = Db.EventRepository.Get(e => e.Id == id, null, "Owner,City,EventCategory").FirstOrDefault();
-            EventDTO eventDTO = _mapper.Map<Event, EventDTO>(ev);
+            var ev = Db.EventRepository
+                .Get(e => e.Id == id, null, "Owner,City,EventCategory")
+                .FirstOrDefault();
 
-            List<string> categories = new List<string>();
-            if (ev.EventCategory.Count > 0)
-            {
-                foreach (var ec in ev.EventCategory)
-                {
-                    categories.Add(Db.CategoryRepository.Get(ec.CategoryId).Name);
-                }
-            }
-            eventDTO.CategoriyNames = categories;
+            //EventDTO eventDTO = _mapper.Map<Event, EventDTO>(ev);
+            //eventDTO.CategoryNames = ev.EventCategory
+            //    .Select(x => Db.CategoryRepository.Get(x.CategoryId).Name).ToList();
+            
+            var eventDTO = _mapper.Map<Event, EventDTO>(ev, opt => 
+            { opt.AfterMap((src, dest) 
+                => dest.CategoryNames = src.EventCategory
+                    .Select(x => Db.CategoryRepository.Get(x.CategoryId).Name).ToList());
+            });
 
             return eventDTO;
         }
 
-        public List<string> GetCategoriesForEvent(Event e)
-        {
-            List<string> categories = new List<string>();
-            if (e.EventCategory.Count > 0)
-            {
-                foreach (var ec in e.EventCategory)
-                {
-                    categories.Add(Db.CategoryRepository.Get(ec.CategoryId).Name);
-                }
 
-            }
-
-            return categories;
-        }
 
         public async Task<OperationDetails> CreateEventAsync(EventDTO eventDto)
         {
