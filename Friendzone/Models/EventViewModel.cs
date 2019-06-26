@@ -27,7 +27,7 @@ namespace Friendzone.Web.Models
         //public List<Category> Categories { get; set; }
         
         [Required]
-        public int OwnerId { get; set; }
+        public string OwnerUserId { get; set; }
 
         public string Description { get; set; }
 

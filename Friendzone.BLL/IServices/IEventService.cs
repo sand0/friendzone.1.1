@@ -10,10 +10,13 @@ namespace Friendzone.Core.IServices
 {
     public interface IEventService
     {
-        IEnumerable<Event> Events();
-        Event Events(int id);
+        IEnumerable<EventDTO> Events();
+        EventDTO Events(int id);
+
         Task<OperationDetails> CreateEventAsync(EventDTO ev);
         Task<OperationDetails> EditEventAsync(EventDTO ev);
         Task<OperationDetails> DeleteAsync(int id);
+
+        List<string> GetCategoriesForEvent(Event e);
     }
 }

@@ -16,10 +16,12 @@ namespace Friendzone.Core.DTO
         public DateTime DateTo { get; set; }
 
         public int CityId { get; set; }
+        public City City { get; set; }
 
         public List<int> CategoriyIds { get; set; }
+        public List<string> CategoriyNames { get; set; }
 
-        public int OwnerId { get; set; }
+        public string OwnerUserId { get; set; }
 
         public string Description { get; set; }
     }

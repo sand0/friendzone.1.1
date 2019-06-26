@@ -16,7 +16,7 @@ namespace Entities
         public virtual Photo Photo { get; set; }
         public string Description { get; set; }
 
-        public int OwnerId { get; set; }
+        public string OwnerUserId { get; set; }
         public virtual UserProfile Owner { get; set; }
 
         public virtual List<EventCategory> EventCategory { get; set; }

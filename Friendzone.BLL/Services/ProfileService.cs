@@ -73,7 +73,7 @@ namespace Friendzone.Core.Services
                 return new OperationDetails(false, "Not found", "");
             }
 
-            oldProfile.City = profile.City;
+            oldProfile.City = Db.CityRepository.Get(profile.CityId);
             oldProfile.Birthday = profile.Birthday;
 
             Db.ProfileRepository.Update(oldProfile);

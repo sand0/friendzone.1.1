@@ -71,19 +71,43 @@ namespace Friendzone.DAL.Data
                 .Property(c => c.Name).IsRequired();
 
             builder.Entity<Event>()
-                .Property(e => e.OwnerId).IsRequired();
+                .Property(e => e.OwnerUserId).IsRequired();
+            builder.Entity<Event>()
+                .HasOne(e => e.Owner)
+                .WithMany(up => up.MyEvents);
             builder.Entity<Event>().
                 Property(u => u.DateFrom).HasColumnType("date");
             builder.Entity<Event>().
                 Property(u => u.DateTo).HasColumnType("date");
 
+            builder.Entity<Category>()
+                .Property(c => c.Id)
+                .ValueGeneratedOnAdd();
+            builder.Entity<Category>().HasData(
+                new Category { Id = 1, Name = "FieldTrip"},
+                new Category { Id = 2, Name = "Fishing"},
+                new Category { Id = 3, Name = "Relaxing" },
+                new Category { Id = 4, Name = "Board Games" },
+                new Category { Id = 5, Name = "PC Games" },
+                new Category { Id = 6, Name = "Mountains" }
+            );
+
             builder.Entity<Country>()
                 .Property(c => c.Name).IsRequired();
             builder.Entity<Country>()
                 .HasIndex(c => c.Name).IsUnique();
+            builder.Entity<Country>().HasData(
+                new Country { Id = 1, Name = "Ukraine" }
+            );
 
             builder.Entity<City>()
                 .Property(c => c.Name).IsRequired();
+            builder.Entity<City>().HasData(
+                new City { Id = 1, CountryId = 1, Name = "Kyiv" },
+                new City { Id = 2, CountryId = 1, Name = "Khotyn" },
+                new City { Id = 3, CountryId = 1, Name = "Vijnitsya" },
+                new City { Id = 4, CountryId = 1, Name = "Chernivtsi" }
+            );
         }
     }
 

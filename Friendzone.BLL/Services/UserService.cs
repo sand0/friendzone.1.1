@@ -42,31 +42,8 @@ namespace Friendzone.Core.Services
 
             UserProfile userProfile = new UserProfile { UserId = user.Id };
             
-            //
-            //if (userDto.City != null && userDto.Country != null)
-            //{
-            //    Country country = Db.CountryRepository.All()
-            //                    .Where(c => c.Name == userDto.Country).FirstOrDefault()
-            //                    ??
-            //                    Db.CountryRepository.Create(new Country
-            //                    {
-            //                        Name = userDto.Country
-            //                    });
-
-            //    City city = Db.CityRepository.All()
-            //        .Where(c => (c.Name == userDto.City && c.CountryId == country.Id)).FirstOrDefault()
-            //        ??
-            //        Db.CityRepository.Create(new City
-            //        {
-            //            Name = userDto.City,
-            //            Country = country
-            //        });
-
-            //    userProfile.City = city;
-            //}
-
-            Db.ProfileRepository.Create(userProfile);
-
+            userProfile = Db.ProfileRepository.Create(userProfile);
+            
             user.ProfileId = userProfile.Id;
 
             result = await Db.UserManager.UpdateAsync(user);
@@ -91,7 +68,9 @@ namespace Friendzone.Core.Services
 
         public async Task<User> GetCurrentUserAsync(HttpContext context)
         {
-            return await Db.UserManager.GetUserAsync(context.User);
+            User user = await Db.UserManager.GetUserAsync(context.User);
+            var prof = Db.ProfileRepository.Get(p => p.UserId == user.Id);
+            return user;
         }
 
         public async Task SignOutAsync()

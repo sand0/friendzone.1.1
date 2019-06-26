@@ -17,10 +17,11 @@ namespace Friendzone.Web.Models
         public string City { get; set; }
         public string Description { get; set; }
 
-        public virtual UserProfile Owner { get; set; }
+        //public virtual UserProfile Owner { get; set; }
+        public string OwnerUserId { get; set; }
 
 
 
-        public virtual List<Category> Categories { get; set; }
+        public virtual List<string> Categories { get; set; }
     }
 }

@@ -9,7 +9,7 @@ namespace Friendzone.Web.Models
 
         public string AvatarUrl { get; set; }
         public int Age { get; set; }
-        public City City { get; set; }
+        public string City { get; set; }
         //public List<Event> Events { get; set; }
     }
 }

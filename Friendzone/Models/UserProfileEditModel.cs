@@ -12,7 +12,7 @@ namespace Friendzone.Web.Models
         public int Id { get; set; }
 
         public DateTime Birthday { get; set; }
-        public City City { get; set; }
+        public int CityId { get; set; }
 
     }
 }

@@ -24,13 +24,44 @@ namespace Friendzone.Core.Services
         }
 
 
-        public IEnumerable<Event> Events() => Db.EventRepository.All();
-
-        public Event Events(int id) //=> Db.EventRepository.Get(e => e.Id == id, null ,"Owner,City,EventCategory").FirstOrDefault();
+        public IEnumerable<EventDTO> Events()
         {
-            var ev = Db.EventRepository.Get(e => e.Id == id, null, "City,EventCategory,Owner").FirstOrDefault();
+            var events = Db.EventRepository.All().AsEnumerable();
+            return _mapper.Map<IEnumerable<Event>, IEnumerable<EventDTO>>(events);
+        }
+        
 
-            return ev;
+        public EventDTO Events(int id)
+        {
+            var ev = Db.EventRepository.Get(e => e.Id == id, null, "Owner,City,EventCategory").FirstOrDefault();
+            EventDTO eventDTO = _mapper.Map<Event, EventDTO>(ev);
+
+            List<string> categories = new List<string>();
+            if (ev.EventCategory.Count > 0)
+            {
+                foreach (var ec in ev.EventCategory)
+                {
+                    categories.Add(Db.CategoryRepository.Get(ec.CategoryId).Name);
+                }
+            }
+            eventDTO.CategoriyNames = categories;
+
+            return eventDTO;
+        }
+
+        public List<string> GetCategoriesForEvent(Event e)
+        {
+            List<string> categories = new List<string>();
+            if (e.EventCategory.Count > 0)
+            {
+                foreach (var ec in e.EventCategory)
+                {
+                    categories.Add(Db.CategoryRepository.Get(ec.CategoryId).Name);
+                }
+
+            }
+
+            return categories;
         }
 
         public async Task<OperationDetails> CreateEventAsync(EventDTO eventDto)
@@ -60,7 +91,7 @@ namespace Friendzone.Core.Services
             return new OperationDetails(true, "", "");
         }
 
-        public async Task<OperationDetails> EditEventAsync(EventDTO ev)
+        public async Task<OperationDetails> EditEventAsync(EventDTO eventDto)
         {
             throw new NotImplementedException();
         }

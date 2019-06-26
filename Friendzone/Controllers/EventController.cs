@@ -34,8 +34,10 @@ namespace Friendzone.Web.Controllers
         [HttpGet("{id:int}")]
         public IActionResult Get(int id)
         {
-            Event ev = _eventService.Events(id);
-            EventDetailsViewModel model = _mapper.Map<Event, EventDetailsViewModel>(ev);
+            EventDTO ev = _eventService.Events(id);
+            EventDetailsViewModel model = _mapper.Map<EventDTO, EventDetailsViewModel>(ev);
+
+            
             return Ok(model);
         }
 

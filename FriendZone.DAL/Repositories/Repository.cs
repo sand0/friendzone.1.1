@@ -65,7 +65,7 @@ namespace Friendzone.DAL.Repositories
                 throw new ArgumentNullException(nameof(entity));
             }
             Entities.Add(entity);
-            //_context.SaveChanges();
+            _context.SaveChanges();
             return entity;
         }
 

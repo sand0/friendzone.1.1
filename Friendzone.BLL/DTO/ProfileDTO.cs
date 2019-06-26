@@ -14,6 +14,7 @@ namespace Friendzone.Core.DTO
         public string PhoneNumber { get; set; }
 
         public DateTime Birthday { get; set; }
+        public int CityId { get; set; }
         public City City { get; set; }
         
         public string AvaUrl { get; set; }

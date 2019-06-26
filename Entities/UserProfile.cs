@@ -13,5 +13,8 @@ namespace Entities
         public virtual City City { get; set; }
 
         public virtual IEnumerable<UserProfileCategory> UserProfileCategory { get; set; }
+
+        public virtual IEnumerable<Event> MyEvents { get; set; }
+        //public virtual IEnumerable<Event> ChosenEvents { get; set; }
     }
 }

@@ -35,12 +35,13 @@ namespace Friendzone.Web.Mapper
             CreateMap<UserProfileEditModel, ProfileDTO>()
                 .ForMember(dest => dest.Id, opts => opts.MapFrom(src => src.Id))
                 .ForMember(dest => dest.Birthday, opts => opts.MapFrom(src => src.Birthday))
-                .ForMember(dest => dest.City, opts => opts.MapFrom(src => src.City));
+                .ForMember(dest => dest.CityId, opts => opts.MapFrom(src => src.CityId));
 
             CreateMap<ProfileDTO, UserProfileViewModel>()
                 .ForMember(dest => dest.UserName, opts => opts.MapFrom(src => src.UserName))
                 .ForMember(dest => dest.Email, opts => opts.MapFrom(src => src.Email))
                 .ForMember(dest => dest.AvatarUrl, opts => opts.MapFrom(src => src.AvaUrl))
+                .ForMember(dest => dest.City, opts => opts.MapFrom(src => src.City.Name))
                 .ForMember(dest => dest.Age, opts => opts.MapFrom(src => (DateTime.Today.Year - src.Birthday.Year)));
 
             CreateMap<ProfileDTO, UserProfile>()
@@ -65,7 +66,7 @@ namespace Friendzone.Web.Mapper
                 .ForMember(dest => dest.DateTo, opt => opt.MapFrom(src => src.DateTo))
                 .ForMember(dest => dest.CityId, opt => opt.MapFrom(src => src.CityId))
                 .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))
-                .ForMember(dest => dest.OwnerId, opt => opt.MapFrom(src => src.OwnerId))
+                .ForMember(dest => dest.OwnerUserId, opt => opt.MapFrom(src => src.OwnerUserId))
                 .ForMember(dest => dest.CategoriyIds, opt => opt.MapFrom(src => src.CategoryIds));
 
             CreateMap<EventDTO, Event>()
@@ -75,17 +76,27 @@ namespace Friendzone.Web.Mapper
                 .ForMember(dest => dest.DateTo, opt => opt.MapFrom(src => src.DateTo))
                 .ForMember(dest => dest.CityId, opt => opt.MapFrom(src => src.CityId))
                 .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))
-                .ForMember(dest => dest.OwnerId, opt => opt.MapFrom(src => src.OwnerId));
+                .ForMember(dest => dest.OwnerUserId, opt => opt.MapFrom(src => src.OwnerUserId));
 
-            CreateMap<Event, EventDetailsViewModel>()
+            CreateMap<Event, EventDTO>()
+                //.ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
+                //.ForMember(dest => dest.Title, opt => opt.MapFrom(src => src.Title))
+                //.ForMember(dest => dest.DateFrom, opt => opt.MapFrom(src => src.DateFrom))
+                //.ForMember(dest => dest.DateTo, opt => opt.MapFrom(src => src.DateTo))
+                //.ForMember(dest => dest.CityId, opt => opt.MapFrom(src => src.City.Id))
+                //.ForMember(dest => dest.City, opt => opt.MapFrom(src => src.City))
+                //.ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))
+                .ForMember(dest => dest.OwnerUserId, opt => opt.MapFrom(src => src.Owner.UserId));
+
+            CreateMap<EventDTO, EventDetailsViewModel>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
                 .ForMember(dest => dest.Title, opt => opt.MapFrom(src => src.Title))
                 .ForMember(dest => dest.DateFrom, opt => opt.MapFrom(src => src.DateFrom.ToString("yyyy-MM-dd")))
                 .ForMember(dest => dest.DateTo, opt => opt.MapFrom(src => src.DateTo.ToString("yyyy-MM-dd")))
                 .ForMember(dest => dest.City, opt => opt.MapFrom(src => src.City.Name))
                 .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))
-                .ForMember(dest => dest.Owner, opt => opt.MapFrom(src => src.Owner));
-
+                .ForMember(dest => dest.Categories, opt => opt.MapFrom(src => src.CategoriyNames))
+                .ForMember(dest => dest.OwnerUserId, opt => opt.MapFrom(src => src.OwnerUserId));
         }
     }
 }

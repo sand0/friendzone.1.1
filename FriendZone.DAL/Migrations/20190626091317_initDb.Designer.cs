@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Friendzone.DAL.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20190625131620_ChangeProfileModel")]
-    partial class ChangeProfileModel
+    [Migration("20190626091317_initDb")]
+    partial class initDb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -33,6 +33,15 @@ namespace Friendzone.DAL.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Categories");
+
+                    b.HasData(
+                        new { Id = 1, Name = "FieldTrip" },
+                        new { Id = 2, Name = "Fishing" },
+                        new { Id = 3, Name = "Relaxing" },
+                        new { Id = 4, Name = "Board Games" },
+                        new { Id = 5, Name = "PC Games" },
+                        new { Id = 6, Name = "Mountains" }
+                    );
                 });
 
             modelBuilder.Entity("Entities.City", b =>
@@ -51,6 +60,13 @@ namespace Friendzone.DAL.Migrations
                     b.HasIndex("CountryId");
 
                     b.ToTable("Cities");
+
+                    b.HasData(
+                        new { Id = 1, CountryId = 1, Name = "Kyiv" },
+                        new { Id = 2, CountryId = 1, Name = "Khotyn" },
+                        new { Id = 3, CountryId = 1, Name = "Vijnitsya" },
+                        new { Id = 4, CountryId = 1, Name = "Chernivtsi" }
+                    );
                 });
 
             modelBuilder.Entity("Entities.Country", b =>
@@ -68,6 +84,10 @@ namespace Friendzone.DAL.Migrations
                         .IsUnique();
 
                     b.ToTable("Countries");
+
+                    b.HasData(
+                        new { Id = 1, Name = "Ukraine" }
+                    );
                 });
 
             modelBuilder.Entity("Entities.Event", b =>
@@ -86,7 +106,8 @@ namespace Friendzone.DAL.Migrations
 
                     b.Property<string>("Description");
 
-                    b.Property<int>("OwnerId");
+                    b.Property<string>("OwnerUserId")
+                        .IsRequired();
 
                     b.Property<int?>("PhotoId");
 
@@ -95,6 +116,8 @@ namespace Friendzone.DAL.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CityId");
+
+                    b.HasIndex("OwnerUserId");
 
                     b.HasIndex("PhotoId");
 
@@ -191,8 +214,6 @@ namespace Friendzone.DAL.Migrations
 
                     b.Property<int?>("CityId");
 
-                    b.Property<int?>("EventId");
-
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -204,10 +225,6 @@ namespace Friendzone.DAL.Migrations
                     b.HasIndex("AvatarId");
 
                     b.HasIndex("CityId");
-
-                    b.HasIndex("EventId")
-                        .IsUnique()
-                        .HasFilter("[EventId] IS NOT NULL");
 
                     b.ToTable("UserProfiles");
                 });
@@ -249,8 +266,8 @@ namespace Friendzone.DAL.Migrations
                     b.ToTable("AspNetRoles");
 
                     b.HasData(
-                        new { Id = "a12e2590-b8ad-4f8b-b06c-5eccc7dd6797", ConcurrencyStamp = "c892700c-fdc1-491d-b8f2-c0a4b90f28d9", Name = "Admin", NormalizedName = "ADMIN" },
-                        new { Id = "f7533f68-60ce-4a63-a300-4a07c8bf2302", ConcurrencyStamp = "30d47c1f-f505-484e-b772-ce02bca5f4a5", Name = "User", NormalizedName = "USER" }
+                        new { Id = "26e2a7bd-8c82-4918-bfb3-293625996195", ConcurrencyStamp = "47f82cd7-541e-4a34-b9ae-b953de1bd2ef", Name = "Admin", NormalizedName = "ADMIN" },
+                        new { Id = "213d77e4-18f8-46bd-882e-37f9e3fa1708", ConcurrencyStamp = "14994b59-cbb7-4cd9-97cc-8246d598d807", Name = "User", NormalizedName = "USER" }
                     );
                 });
 
@@ -355,6 +372,11 @@ namespace Friendzone.DAL.Migrations
                         .HasForeignKey("CityId")
                         .OnDelete(DeleteBehavior.Cascade);
 
+                    b.HasOne("Entities.UserProfile", "Owner")
+                        .WithMany("MyEvents")
+                        .HasForeignKey("OwnerUserId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
                     b.HasOne("Entities.Photo", "Photo")
                         .WithMany()
                         .HasForeignKey("PhotoId");
@@ -382,10 +404,6 @@ namespace Friendzone.DAL.Migrations
                     b.HasOne("Entities.City", "City")
                         .WithMany()
                         .HasForeignKey("CityId");
-
-                    b.HasOne("Entities.Event")
-                        .WithOne("Owner")
-                        .HasForeignKey("Entities.UserProfile", "EventId");
 
                     b.HasOne("Entities.User", "User")
                         .WithOne("Profile")
