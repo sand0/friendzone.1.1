@@ -15,6 +15,6 @@ namespace Entities
         public virtual IEnumerable<UserProfileCategory> UserProfileCategory { get; set; }
 
         public virtual IEnumerable<Event> MyEvents { get; set; }
-        //public virtual IEnumerable<Event> ChosenEvents { get; set; }
+        public virtual IEnumerable<EventUserProfile> ChosenEvents { get; set; }
     }
 }

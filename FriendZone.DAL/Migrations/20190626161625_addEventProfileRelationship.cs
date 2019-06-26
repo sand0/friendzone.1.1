@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Friendzone.DAL.Migrations
 {
-    public partial class initDb : Migration
+    public partial class addEventProfileRelationship : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -257,10 +257,10 @@ namespace Friendzone.DAL.Migrations
                     Title = table.Column<string>(nullable: true),
                     DateFrom = table.Column<DateTime>(type: "date", nullable: false),
                     DateTo = table.Column<DateTime>(type: "date", nullable: false),
-                    CityId = table.Column<int>(nullable: false),
+                    CityId = table.Column<int>(nullable: true),
                     PhotoId = table.Column<int>(nullable: true),
                     Description = table.Column<string>(nullable: true),
-                    OwnerUserId = table.Column<string>(nullable: false)
+                    OwnerUserId = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -270,13 +270,13 @@ namespace Friendzone.DAL.Migrations
                         column: x => x.CityId,
                         principalTable: "Cities",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Events_UserProfiles_OwnerUserId",
                         column: x => x.OwnerUserId,
                         principalTable: "UserProfiles",
                         principalColumn: "UserId",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Events_Photos_PhotoId",
                         column: x => x.PhotoId,
@@ -333,13 +333,37 @@ namespace Friendzone.DAL.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "EventUserProfile",
+                columns: table => new
+                {
+                    UserProfileId = table.Column<string>(nullable: false),
+                    EventId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_EventUserProfile", x => new { x.UserProfileId, x.EventId });
+                    table.ForeignKey(
+                        name: "FK_EventUserProfile_Events_EventId",
+                        column: x => x.EventId,
+                        principalTable: "Events",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_EventUserProfile_UserProfiles_UserProfileId",
+                        column: x => x.UserProfileId,
+                        principalTable: "UserProfiles",
+                        principalColumn: "UserId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "26e2a7bd-8c82-4918-bfb3-293625996195", "47f82cd7-541e-4a34-b9ae-b953de1bd2ef", "Admin", "ADMIN" },
-                    { "213d77e4-18f8-46bd-882e-37f9e3fa1708", "14994b59-cbb7-4cd9-97cc-8246d598d807", "User", "USER" }
+                    { "c7f6e739-da8d-4d0d-8ad5-d6d57fedaf5d", "baee7021-de4b-45f6-b189-9db82cc1f1b3", "Admin", "ADMIN" },
+                    { "1f19e427-c04b-4c08-bec3-531044386057", "473a93c4-84c0-413a-826e-f498b7ecb817", "User", "USER" }
                 });
 
             migrationBuilder.InsertData(
@@ -442,6 +466,11 @@ namespace Friendzone.DAL.Migrations
                 column: "PhotoId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_EventUserProfile_EventId",
+                table: "EventUserProfile",
+                column: "EventId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_UserProfileCategory_CategoryId",
                 table: "UserProfileCategory",
                 column: "CategoryId");
@@ -476,6 +505,9 @@ namespace Friendzone.DAL.Migrations
 
             migrationBuilder.DropTable(
                 name: "EventCategory");
+
+            migrationBuilder.DropTable(
+                name: "EventUserProfile");
 
             migrationBuilder.DropTable(
                 name: "UserProfileCategory");

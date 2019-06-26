@@ -10,7 +10,7 @@ namespace Entities
         public DateTime DateFrom { get; set; }
         public DateTime DateTo { get; set; }
 
-        public int CityId { get; set; }
+        public int? CityId { get; set; }
         public virtual City City { get; set; }
 
         public virtual Photo Photo { get; set; }
@@ -20,5 +20,6 @@ namespace Entities
         public virtual UserProfile Owner { get; set; }
 
         public virtual List<EventCategory> EventCategory { get; set; }
+        public virtual List<EventUserProfile> Visitors { get; set; }
     }
 }

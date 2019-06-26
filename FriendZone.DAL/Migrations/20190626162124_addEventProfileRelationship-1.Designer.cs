@@ -4,14 +4,16 @@ using Friendzone.DAL.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Friendzone.DAL.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190626162124_addEventProfileRelationship-1")]
+    partial class addEventProfileRelationship1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -104,10 +106,7 @@ namespace Friendzone.DAL.Migrations
 
                     b.Property<string>("Description");
 
-                    b.Property<string>("OwnerUserId")
-                        .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasDefaultValue("Unname");
+                    b.Property<string>("OwnerUserId");
 
                     b.Property<int?>("PhotoId");
 
@@ -279,8 +278,8 @@ namespace Friendzone.DAL.Migrations
                     b.ToTable("AspNetRoles");
 
                     b.HasData(
-                        new { Id = "68b46095-fff5-402e-8566-2cc678599cf2", ConcurrencyStamp = "27020beb-259c-4cd6-ae94-1117f3203928", Name = "Admin", NormalizedName = "ADMIN" },
-                        new { Id = "f948dd72-6256-4bd5-b7d3-9f0c1979251a", ConcurrencyStamp = "36e4f573-0c8a-4ad6-b5a0-6e0ebfc83bc6", Name = "User", NormalizedName = "USER" }
+                        new { Id = "ea41d1bb-8c72-47cc-a3a8-6e02ef2a86e8", ConcurrencyStamp = "e794f37e-66f5-4181-a49f-82e164aa0444", Name = "Admin", NormalizedName = "ADMIN" },
+                        new { Id = "3dd19aee-377f-4afb-bc39-7ad1ca688ca4", ConcurrencyStamp = "4ce28118-28e2-483b-9bb4-e6d4fb73dbd6", Name = "User", NormalizedName = "USER" }
                     );
                 });
 

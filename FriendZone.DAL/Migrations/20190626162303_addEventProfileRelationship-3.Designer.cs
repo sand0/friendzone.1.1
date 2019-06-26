@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Friendzone.DAL.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20190626091317_initDb")]
-    partial class initDb
+    [Migration("20190626162303_addEventProfileRelationship-3")]
+    partial class addEventProfileRelationship3
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -96,7 +96,7 @@ namespace Friendzone.DAL.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("CityId");
+                    b.Property<int?>("CityId");
 
                     b.Property<DateTime>("DateFrom")
                         .HasColumnType("date");
@@ -107,7 +107,9 @@ namespace Friendzone.DAL.Migrations
                     b.Property<string>("Description");
 
                     b.Property<string>("OwnerUserId")
-                        .IsRequired();
+                        .IsRequired()
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValue("Unname");
 
                     b.Property<int?>("PhotoId");
 
@@ -135,6 +137,19 @@ namespace Friendzone.DAL.Migrations
                     b.HasIndex("CategoryId");
 
                     b.ToTable("EventCategory");
+                });
+
+            modelBuilder.Entity("Entities.EventUserProfile", b =>
+                {
+                    b.Property<string>("UserProfileId");
+
+                    b.Property<int>("EventId");
+
+                    b.HasKey("UserProfileId", "EventId");
+
+                    b.HasIndex("EventId");
+
+                    b.ToTable("EventUserProfile");
                 });
 
             modelBuilder.Entity("Entities.Photo", b =>
@@ -266,8 +281,8 @@ namespace Friendzone.DAL.Migrations
                     b.ToTable("AspNetRoles");
 
                     b.HasData(
-                        new { Id = "26e2a7bd-8c82-4918-bfb3-293625996195", ConcurrencyStamp = "47f82cd7-541e-4a34-b9ae-b953de1bd2ef", Name = "Admin", NormalizedName = "ADMIN" },
-                        new { Id = "213d77e4-18f8-46bd-882e-37f9e3fa1708", ConcurrencyStamp = "14994b59-cbb7-4cd9-97cc-8246d598d807", Name = "User", NormalizedName = "USER" }
+                        new { Id = "68b46095-fff5-402e-8566-2cc678599cf2", ConcurrencyStamp = "27020beb-259c-4cd6-ae94-1117f3203928", Name = "Admin", NormalizedName = "ADMIN" },
+                        new { Id = "f948dd72-6256-4bd5-b7d3-9f0c1979251a", ConcurrencyStamp = "36e4f573-0c8a-4ad6-b5a0-6e0ebfc83bc6", Name = "User", NormalizedName = "USER" }
                     );
                 });
 
@@ -369,13 +384,12 @@ namespace Friendzone.DAL.Migrations
                 {
                     b.HasOne("Entities.City", "City")
                         .WithMany()
-                        .HasForeignKey("CityId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("CityId");
 
                     b.HasOne("Entities.UserProfile", "Owner")
                         .WithMany("MyEvents")
                         .HasForeignKey("OwnerUserId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.SetNull);
 
                     b.HasOne("Entities.Photo", "Photo")
                         .WithMany()
@@ -392,6 +406,19 @@ namespace Friendzone.DAL.Migrations
                     b.HasOne("Entities.Event", "Event")
                         .WithMany("EventCategory")
                         .HasForeignKey("EventId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Entities.EventUserProfile", b =>
+                {
+                    b.HasOne("Entities.Event", "Event")
+                        .WithMany("Visitors")
+                        .HasForeignKey("EventId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Entities.UserProfile", "UserProfile")
+                        .WithMany("ChosenEvents")
+                        .HasForeignKey("UserProfileId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

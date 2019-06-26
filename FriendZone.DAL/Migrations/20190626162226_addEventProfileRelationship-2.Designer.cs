@@ -4,14 +4,16 @@ using Friendzone.DAL.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Friendzone.DAL.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190626162226_addEventProfileRelationship-2")]
+    partial class addEventProfileRelationship2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -105,7 +107,6 @@ namespace Friendzone.DAL.Migrations
                     b.Property<string>("Description");
 
                     b.Property<string>("OwnerUserId")
-                        .IsRequired()
                         .ValueGeneratedOnAdd()
                         .HasDefaultValue("Unname");
 
@@ -279,8 +280,8 @@ namespace Friendzone.DAL.Migrations
                     b.ToTable("AspNetRoles");
 
                     b.HasData(
-                        new { Id = "68b46095-fff5-402e-8566-2cc678599cf2", ConcurrencyStamp = "27020beb-259c-4cd6-ae94-1117f3203928", Name = "Admin", NormalizedName = "ADMIN" },
-                        new { Id = "f948dd72-6256-4bd5-b7d3-9f0c1979251a", ConcurrencyStamp = "36e4f573-0c8a-4ad6-b5a0-6e0ebfc83bc6", Name = "User", NormalizedName = "USER" }
+                        new { Id = "174901bf-81b2-4705-af9e-6d06ea674a4a", ConcurrencyStamp = "288ae4c7-eb78-4383-8e96-edc0275f56a6", Name = "Admin", NormalizedName = "ADMIN" },
+                        new { Id = "d2dfccfa-a9f6-49db-82a7-73e7940d4fb2", ConcurrencyStamp = "78478fa2-8fa0-4462-96c0-99634f318b83", Name = "User", NormalizedName = "USER" }
                     );
                 });
 
