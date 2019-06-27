@@ -17,11 +17,19 @@ namespace Friendzone.Web.Controllers
     public class EventController : ControllerBase
     {
         private IEventService _eventService;
+        private IUserService _userService;
+        private IProfileService _profileService;
         private IMapper _mapper;
         
-        public EventController(IEventService eventSrv, IMapper mapper)
+        public EventController(
+            IEventService eventSrv,
+            IUserService userSrv,
+            IProfileService profileSrv,
+            IMapper mapper)
         {
             _eventService = eventSrv;
+            _userService = userSrv;
+            _profileService = profileSrv;
             _mapper = mapper;
         }
 
@@ -37,7 +45,12 @@ namespace Friendzone.Web.Controllers
             EventDTO ev = _eventService.Events(id);
             EventDetailsViewModel model = _mapper.Map<EventDTO, EventDetailsViewModel>(ev);
 
+            model.Owner = _mapper.Map<ProfileDTO, UserProfilePreviewModel>(_profileService.GetById(model.OwnerUserId));
+
+            model.Visitors = _mapper.Map<List<ProfileDTO>, List<UserProfilePreviewModel>>(ev.Visitors
+                .Select(x => _profileService.GetById(x)).ToList());
             
+
             return Ok(model);
         }
 
@@ -69,6 +82,14 @@ namespace Friendzone.Web.Controllers
                 }
             }
             return BadRequest();
+        }
+
+        [HttpPost("[action]")]
+        public async Task<IActionResult> VisitEvent(int eventId)
+        {
+            User currentUser = await _userService.GetCurrentUserAsync(HttpContext);
+            await _eventService.AddUserToEventAsync(currentUser.Id, eventId);
+            return Ok();
         }
     }
 }

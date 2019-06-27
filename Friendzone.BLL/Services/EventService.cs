@@ -34,22 +34,50 @@ namespace Friendzone.Core.Services
         public EventDTO Events(int id)
         {
             var ev = Db.EventRepository
-                .Get(e => e.Id == id, null, "Owner,City,EventCategory")
+                .Get(e => e.Id == id, null, "Owner,City,EventCategory,Visitors")
                 .FirstOrDefault();
 
-            //EventDTO eventDTO = _mapper.Map<Event, EventDTO>(ev);
-            //eventDTO.CategoryNames = ev.EventCategory
-            //    .Select(x => Db.CategoryRepository.Get(x.CategoryId).Name).ToList();
-            
-            var eventDTO = _mapper.Map<Event, EventDTO>(ev, opt => 
-            { opt.AfterMap((src, dest) 
-                => dest.CategoryNames = src.EventCategory
-                    .Select(x => Db.CategoryRepository.Get(x.CategoryId).Name).ToList());
-            });
+            EventDTO eventDTO = _mapper.Map<Event, EventDTO>(ev);
+            eventDTO.CategoryNames = ev.EventCategory
+                .Select(x => Db.CategoryRepository.Get(x.CategoryId).Name).ToList();
+            eventDTO.Visitors = ev.Visitors
+                .Select(x => x.UserProfileId).ToList();
+
+            //var eventDTO = _mapper.Map<Event, EventDTO>(ev, opt => 
+            //{ opt.AfterMap((src, dest) 
+            //    => {
+            //        dest.CategoryNames = src.EventCategory
+            //            .Select(x => Db.CategoryRepository.Get(x.CategoryId).Name).ToList();
+            //        dest.Visitors = src.Visitors
+            //            .Select(val => val.UserProfileId).ToList();
+            //    });
+            //});
 
             return eventDTO;
         }
 
+
+        public async Task<OperationDetails> AddUserToEventAsync(string profileId, int eventId)
+        {
+            var ev = Db.EventRepository
+                .Get(e => e.Id == eventId, null, "Visitors")
+                .FirstOrDefault();
+
+            if (ev == null)
+            {
+                return new OperationDetails(false, "Event not found!", "eventId");
+            }
+
+            if (ev.Visitors == null)
+            {
+                ev.Visitors = new List<EventUserProfile>();
+            }
+
+            ev.Visitors.Add(new EventUserProfile { EventId = eventId, UserProfileId = profileId});
+            await Db.SaveAsync();
+
+            return new OperationDetails(true, "", "");
+        }
 
 
         public async Task<OperationDetails> CreateEventAsync(EventDTO eventDto)

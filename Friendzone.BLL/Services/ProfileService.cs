@@ -43,6 +43,13 @@ namespace Friendzone.Core.Services
             return _mapper.Map<UserProfile, ProfileDTO>(profile);
         }
 
+        public ProfileDTO GetById(string id)
+        {
+            var profile = Db.ProfileRepository.Get(p => p.UserId == id, null, "User,Avatar,City").FirstOrDefault();
+
+            return _mapper.Map<UserProfile, ProfileDTO>(profile);
+        }
+
         public async Task<OperationDetails> ChangeAvatar(int profileId, Photo newAvatar)
         {
             var profile = Db.ProfileRepository.GetProfileWithAllFields(profileId);
@@ -80,6 +87,33 @@ namespace Friendzone.Core.Services
 
             await Db.SaveAsync();
 
+            return new OperationDetails(true, "", "");
+        }
+
+        public async Task<OperationDetails> EditFavoriteCategories(int profileId, Dictionary<string, string> categories)
+        {
+            var profile = Db.ProfileRepository.Get(filter: p => p.Id == profileId, includeProperties: "").FirstOrDefault();
+            if (profile == null)
+            {
+                return new OperationDetails(false, "Profile not found", "UserProfileCategory");
+            }
+
+            profile.UserProfileCategory = new List<UserProfileCategory>();
+
+
+            foreach (var (k, v) in categories)
+            {
+                if (v == "on")
+                {
+                    profile.UserProfileCategory.Append(new UserProfileCategory
+                    {
+                        UserProfileId = profile.UserId,
+                        CategoryId = int.Parse(k)
+                    });
+                }
+            }
+
+            await Db.SaveAsync();
             return new OperationDetails(true, "", "");
         }
 

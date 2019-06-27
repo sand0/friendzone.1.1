@@ -38,9 +38,7 @@ namespace Friendzone.DAL.Data
             builder.Entity<EventUserProfile>()
                 .HasOne(eu => eu.UserProfile)
                 .WithMany(u => u.ChosenEvents)
-                .HasForeignKey(uc => uc.UserProfileId)
-                //.OnDelete(DeleteBehavior.Restrict)
-                ;
+                .HasForeignKey(uc => uc.UserProfileId);
             builder.Entity<EventUserProfile>()
                 .HasOne(eu => eu.Event)
                 .WithMany(c => c.Visitors)

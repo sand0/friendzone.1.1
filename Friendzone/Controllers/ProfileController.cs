@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using Entities;
@@ -114,6 +115,19 @@ namespace Friendzone.Web.Controllers
                 }
             }
                 
+            return BadRequest();
+        }
+
+        [HttpPost("api/[controller]/[action]")]
+        public async Task<IActionResult> ChangeFavoriteCategories(Dictionary<string, string> categories) 
+        {
+            User currentUser = await _userService.GetCurrentUserAsync(HttpContext);
+            var result = await _profileService.EditFavoriteCategories(currentUser.Profile.Id, categories);
+
+            if (result.Succedeed)
+            {
+                return Ok();
+            }
             return BadRequest();
         }
     }

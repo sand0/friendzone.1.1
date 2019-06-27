@@ -13,8 +13,11 @@ namespace Friendzone.Core.IServices
         IEnumerable<ProfileDTO> Users();
         ProfileDTO GetProfile(User u);
         ProfileDTO GetById(int id);
+        ProfileDTO GetById(string id);
         
         Task<OperationDetails> ChangeAvatar(int profileId, Photo newAvatar);
         Task<OperationDetails> ChangeProfileInfo(ProfileDTO profile);
+
+        Task<OperationDetails> EditFavoriteCategories(int profileId, Dictionary<string, string> categories);
     }
 }

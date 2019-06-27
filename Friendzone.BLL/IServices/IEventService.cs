@@ -17,6 +17,7 @@ namespace Friendzone.Core.IServices
         Task<OperationDetails> EditEventAsync(EventDTO ev);
         Task<OperationDetails> DeleteAsync(int id);
 
-        //List<string> GetCategoriesForEvent(Event e);
+        Task<OperationDetails> AddUserToEventAsync(string profileId, int eventId);
+
     }
 }

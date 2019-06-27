@@ -7,17 +7,17 @@ namespace Friendzone.Web.Controllers
     [Authorize(Roles="Admin")]
     public class AdminController : Controller
     {
-        public IUserService UserService { get; set; }
-        public IProfileService ProfileService { get; set; }
+        private IUserService _userService;
+        private IProfileService _profileService;
 
         public AdminController(IUserService userSrv, IProfileService profileSrv)
         {
-            UserService = userSrv;
-            ProfileService = profileSrv;
+            _userService = userSrv;
+            _profileService = profileSrv;
         }
 
         public IActionResult Index() => View();
 
-        public IActionResult Users() => View(ProfileService.Users());
+        public IActionResult Users() => View(_profileService.Users());
     }
 }

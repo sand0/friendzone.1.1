@@ -23,6 +23,8 @@ namespace Friendzone.Core.DTO
 
         public string OwnerUserId { get; set; }
 
+        public List<string> Visitors { get; set; }
+
         public string Description { get; set; }
     }
 }

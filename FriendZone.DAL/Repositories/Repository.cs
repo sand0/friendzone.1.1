@@ -29,7 +29,9 @@ namespace Friendzone.DAL.Repositories
         public virtual IEnumerable<T> Get(
             Expression<Func<T, bool>> filter = null,
             Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null,
-            string includeProperties = "")
+            string includeProperties = "",
+            int take = 20,
+            int skip = 0)
         {
             IQueryable<T> query = Entities;
 
@@ -44,14 +46,9 @@ namespace Friendzone.DAL.Repositories
                 query = query.Include(includeProperty);
             }
 
-            if (orderBy != null)
-            {
-                return orderBy(query).ToList();
-            }
-            else
-            {
-                return query.ToList();
-            }
+            orderBy?.Invoke(query);
+
+            return query.Skip(skip).Take(take).ToList();
         }
 
 

@@ -56,6 +56,7 @@ namespace Friendzone.Web.Controllers
 
                 if (operationDetails.Succedeed)
                 {
+                    bool auth = await _userService.AuthenticateAsync(userDto);
                     return RedirectToAction("Index", "Home");
                 }
 
