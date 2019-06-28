@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Friendzone.Web.Controllers
 {
-    [Authorize]
+    //[Authorize]
     [ApiController]
     [Route("api/[controller]")]
     public class CategoryController : Controller
@@ -25,6 +25,8 @@ namespace Friendzone.Web.Controllers
         [HttpGet("")]
         public IActionResult All()
         {
+            //Response.Headers.Add("Access-Control-Allow-Origin", "*");
+
             return Ok(_categoryService.GetAllCategories());
         }
 

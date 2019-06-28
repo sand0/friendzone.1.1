@@ -120,12 +120,21 @@ namespace Friendzone
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
             });
 
+            app.Use(async (c, n) => {
+                c.Response.Headers.Add("Access-Control-Allow-Origin", "*");
+                await n.Invoke();
+                });
+            
+
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
+
+
+            //app.UseCors(builder => builder.WithOrigins("http://localhost:3000", "https://localhost:44339"));
         }
     }
 }
