@@ -12,7 +12,7 @@ function getData() {
 
     console.log(options);
 
-    return fetch('https://localhost:44339/api/Category/', options)
+    return fetch('https://friendzone.azurewebsites.net/api/Locations/country:1/Cities', options)
         .then(response => response.json())
         .then( (res) => {
             console.log(res);

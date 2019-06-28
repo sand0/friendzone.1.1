@@ -29,7 +29,7 @@ namespace Friendzone.Web.Mapper
             CreateMap<RegisterModel, UserDTO>()
                  //.ForMember(dest => dest.Email, opts => opts.MapFrom(src => src.Email))
                  //.ForMember(dest => dest.Password, opts => opts.MapFrom(src => src.Password))
-                 //.ForMember(dest => dest.UserName, opts => opts.MapFrom(src => src.Login))
+                 .ForMember(dest => dest.UserName, opts => opts.MapFrom(src => src.Login))
                  .ForMember(dest => dest.Role, opts => opts.MapFrom(src => "user"));
 
             CreateMap<UserProfileEditModel, ProfileDTO>();

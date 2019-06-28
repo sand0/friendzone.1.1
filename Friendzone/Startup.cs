@@ -40,7 +40,7 @@ namespace Friendzone
             });
 
             services.AddDbContext<AppDbContext>(options => 
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+                options.UseSqlServer(Configuration.GetConnectionString("AzureSQLServer")));
 
             services.AddIdentity<User, IdentityRole>()
                 //.AddDefaultUI()
