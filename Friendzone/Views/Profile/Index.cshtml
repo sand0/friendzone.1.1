@@ -10,6 +10,11 @@
         @if (Model.AvatarUrl != null)
         {
             <img src="@Model.AvatarUrl" width="180" />
+
+        }
+        else
+        {
+            <img src="files/145842.png" width="180" />
         }
 
     </div>
@@ -28,12 +33,6 @@
             </dt>
             <dd>
                 @Html.DisplayFor(model => model.Email)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.AvatarUrl)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.AvatarUrl)
             </dd>
             <dt>
                 @Html.DisplayNameFor(model => model.Age)
