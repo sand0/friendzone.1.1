@@ -74,6 +74,40 @@ namespace Friendzone.Web.Controllers
         }
 
 
+        // Endpoints for API
+
+        [HttpPost("api/[controller]/[action]")]
+        public async Task<IActionResult> ApiLogin(LoginModel model)
+        {
+            await AdminSeedAsync();
+
+            if (ModelState.IsValid)
+            {
+                UserDTO userDto = _mapper.Map<LoginModel, UserDTO>(model);
+
+                bool auth = await _userService.AuthenticateAsync(userDto);
+                if (auth)
+                {
+                    return Ok();
+                }
+
+            }
+            ModelState.AddModelError("", "Email or Password is incorect!");
+            return BadRequest(model);
+        }
+
+
+        [HttpPost("api/[controller]/[action]")]
+        public async Task<IActionResult> ApiLogout()
+        {
+            await _userService.SignOutAsync();
+
+            return Ok();
+        }
+
+
+        // Admin seeder
+
         private async Task AdminSeedAsync()
         {
             await _userService.AdminSeedAsync(new UserDTO
