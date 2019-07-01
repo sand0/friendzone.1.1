@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Friendzone.Web.Controllers
 {
-    [Authorize]
+    //[Authorize]
     public class ProfileController : Controller
     {
         private IProfileService _profileService;

@@ -34,12 +34,15 @@ namespace Friendzone.Web.Controllers
         }
 
         [HttpGet]
-        public IActionResult Get()
+        public IActionResult Get(int page = 1, int pageSize = 20)
         {
-            return Ok(_eventService.Events());
+            int count = _eventService.Events().Count();
+            var items = _eventService.Events(skip: (page - 1) * pageSize, take: pageSize).AsEnumerable();
+
+            return Ok(items);
         }
 
-        [HttpGet("{id:int}")]
+        [HttpGet("/{id:int}/details")]
         public IActionResult Get(int id)
         {
             EventDTO ev = _eventService.Events(id);

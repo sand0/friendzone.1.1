@@ -9,6 +9,8 @@ using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
 using System.Linq;
+using System.Linq.Expressions;
+using AutoMapper.QueryableExtensions;
 
 namespace Friendzone.Core.Services
 {
@@ -24,10 +26,21 @@ namespace Friendzone.Core.Services
         }
 
 
-        public IEnumerable<EventDTO> Events()
+        public IQueryable<EventDTO> Events(
+            Expression<Func<Event, bool>> filter = null,
+            Func<IQueryable<Event>, IOrderedQueryable<Event>> orderBy = null,
+            int? skip = null,
+            int? take = null)
         {
-            var events = Db.EventRepository.All().AsEnumerable();
-            return _mapper.Map<IEnumerable<Event>, IEnumerable<EventDTO>>(events);
+            
+
+            var events = Db.EventRepository.Get(
+                filter: filter,
+                orderBy: orderBy,
+                skip: skip,
+                take: take);
+
+            return _mapper.ProjectTo<EventDTO>(events);
         }
         
 

@@ -25,13 +25,13 @@ namespace Friendzone.DAL.Repositories
         public IQueryable<T> All() => Entities;
 
 
-        // TODO: add pagination to this one!
-        public virtual IEnumerable<T> Get(
+        public virtual IQueryable<T> Get(
             Expression<Func<T, bool>> filter = null,
             Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null,
             string includeProperties = "",
-            int take = 20,
-            int skip = 0)
+            int? skip = null,
+            int? take = null
+            )
         {
             IQueryable<T> query = Entities;
 
@@ -48,7 +48,12 @@ namespace Friendzone.DAL.Repositories
 
             orderBy?.Invoke(query);
 
-            return query.Skip(skip).Take(take).ToList();
+            if (skip != null && take != null)
+            {
+                query = query.Skip(skip.Value).Take(take.Value);
+            }
+
+            return query.AsQueryable();
         }
 
 

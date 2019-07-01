@@ -12,7 +12,6 @@ namespace Friendzone.Core.DTO
         public string Title { get; set; }
 
         public DateTime DateFrom { get; set; }
-
         public DateTime DateTo { get; set; }
 
         public int CityId { get; set; }

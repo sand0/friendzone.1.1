@@ -10,12 +10,13 @@ namespace Friendzone.Core.IRepositories
     {
         IQueryable<T> All();
 
-        IEnumerable<T> Get(
+        IQueryable<T> Get(
             Expression<Func<T, bool>> filter = null,
             Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null,
             string includeProperties = "",
-            int take = 20,
-            int skip = 0);
+            int? skip = null,
+            int? take = null
+            );
 
         T Get(int id);
 
