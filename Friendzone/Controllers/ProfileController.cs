@@ -119,10 +119,11 @@ namespace Friendzone.Web.Controllers
         }
 
         [HttpPost("api/[controller]/[action]")]
-        public async Task<IActionResult> ChangeFavoriteCategories(Dictionary<string, string> categories) 
+        public async Task<IActionResult> ChangeFavoriteCategories(List<int> selected) 
         {
             User currentUser = await _userService.GetCurrentUserAsync(HttpContext);
-            var result = await _profileService.EditFavoriteCategories(currentUser.Profile.Id, categories);
+
+            var result = await _profileService.EditFavoriteCategories(currentUser.Profile.Id, selected);
 
             if (result.Succedeed)
             {

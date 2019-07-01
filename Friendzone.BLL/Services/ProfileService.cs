@@ -90,29 +90,27 @@ namespace Friendzone.Core.Services
             return new OperationDetails(true, "", "");
         }
 
-        public async Task<OperationDetails> EditFavoriteCategories(int profileId, Dictionary<string, string> categories)
+        public async Task<OperationDetails> EditFavoriteCategories(int profileId, List<int> categories)
         {
             var profile = Db.ProfileRepository.Get(filter: p => p.Id == profileId, includeProperties: "").FirstOrDefault();
             if (profile == null)
             {
-                return new OperationDetails(false, "Profile not found", "UserProfileCategory");
+                return new OperationDetails(false, "Profile not found", "");
             }
 
             profile.UserProfileCategory = new List<UserProfileCategory>();
 
 
-            foreach (var (k, v) in categories)
+            foreach (var c in categories)
             {
-                if (v == "on")
+                profile.UserProfileCategory.Add(new UserProfileCategory
                 {
-                    profile.UserProfileCategory.Append(new UserProfileCategory
-                    {
-                        UserProfileId = profile.UserId,
-                        CategoryId = int.Parse(k)
-                    });
-                }
+                    UserProfileId = profile.UserId,
+                    CategoryId = c
+                });
+                
             }
-
+            Db.ProfileRepository.Update(profile);
             await Db.SaveAsync();
             return new OperationDetails(true, "", "");
         }

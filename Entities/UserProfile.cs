@@ -12,7 +12,7 @@ namespace Entities
         public DateTime Birthday { get; set; }
         public virtual City City { get; set; }
 
-        public virtual IEnumerable<UserProfileCategory> UserProfileCategory { get; set; }
+        public virtual List<UserProfileCategory> UserProfileCategory { get; set; }
 
         public virtual IEnumerable<Event> MyEvents { get; set; }
         public virtual IEnumerable<EventUserProfile> ChosenEvents { get; set; }

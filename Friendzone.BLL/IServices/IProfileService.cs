@@ -18,6 +18,6 @@ namespace Friendzone.Core.IServices
         Task<OperationDetails> ChangeAvatar(int profileId, Photo newAvatar);
         Task<OperationDetails> ChangeProfileInfo(ProfileDTO profile);
 
-        Task<OperationDetails> EditFavoriteCategories(int profileId, Dictionary<string, string> categories);
+        Task<OperationDetails> EditFavoriteCategories(int profileId, List<int> categories);
     }
 }
