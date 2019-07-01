@@ -45,6 +45,15 @@ namespace Friendzone.Web.Controllers
         // for testing...
 
         [HttpGet]
+        public async Task<IActionResult> ProfileInfo()
+        {
+            User currentUser = await _userService.GetCurrentUserAsync(HttpContext);
+            var profile = _profileService.GetById(currentUser.ProfileId);
+            return PartialView("_ProfilePartial", profile);
+        }
+
+
+        [HttpGet]
         public async Task<IActionResult> ChangeAva()
         {
             User currentUser = await _userService.GetCurrentUserAsync(HttpContext);

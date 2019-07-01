@@ -123,10 +123,10 @@ namespace Friendzone.Core.Services
             Event newEvent = Db.EventRepository.Create(ev);
 
             // Add selected Categories
-            if (eventDto.CategoriyIds.Count > 0)
+            if (eventDto.CategoryIds?.Count > 0)
             {
                 newEvent.EventCategory = new List<EventCategory>();
-                foreach (var c in eventDto.CategoriyIds)
+                foreach (var c in eventDto.CategoryIds)
                 {
                     newEvent.EventCategory.Add(new EventCategory { CategoryId = c, Event = newEvent });
                 }

@@ -25,8 +25,6 @@ namespace Friendzone.Web.Controllers
         [HttpGet("")]
         public IActionResult All()
         {
-            //Response.Headers.Add("Access-Control-Allow-Origin", "*");
-
             return Ok(_categoryService.GetAllCategories());
         }
 

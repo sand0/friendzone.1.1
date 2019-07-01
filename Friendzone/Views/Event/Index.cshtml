@@ -1,0 +1,32 @@
+﻿@model IEnumerable<Friendzone.Core.DTO.EventDTO>
+
+@{
+    ViewData["Title"] = "Events";
+    int take = (int)ViewData["take"];
+    int page = (int)ViewData["page"];
+}
+
+<h2>@ViewData["Title"]</h2>
+
+@foreach (var item in Model)
+{
+    <div class="row">
+        @await Component.InvokeAsync("EventPreview", item)
+    </div>
+}
+
+<nav aria-label="Page navigation">
+    <ul class="pagination">
+        @if (page > 1)
+        {
+            <li class="page-item"><a class="page-link" href="/event/page@(page - 1)">Previous</a></li>
+            <li class="page-item"><a class="page-link" href="/event/page@(page - 1)">@(page - 1)</a></li>
+        }
+        <li class="page-item"><a class="page-link" href="#">@(page)</a></li>
+        @if (Model.Count() == take)
+        {
+            <li class="page-item"><a class="page-link" href="/event/page@(page + 1)">@(page + 1)</a></li>
+            <li class="page-item"><a class="page-link" href="/event/page@(page + 1)">Next</a></li>
+        }
+    </ul>
+</nav>

@@ -17,7 +17,7 @@ namespace Friendzone.Core.DTO
         public int CityId { get; set; }
         public City City { get; set; }
 
-        public List<int> CategoriyIds { get; set; }
+        public List<int> CategoryIds { get; set; }
         public List<string> CategoryNames { get; set; }
 
         public string OwnerUserId { get; set; }

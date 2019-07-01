@@ -14,8 +14,8 @@ using Microsoft.AspNetCore.Mvc;
 namespace Friendzone.Web.Controllers
 {
     [Route("api/[controller]")]
-    [ApiController]
-    public class EventController : ControllerBase
+    //[ApiController]
+    public class EventController : Controller
     {
         private IEventService _eventService;
         private IUserService _userService;
@@ -34,6 +34,25 @@ namespace Friendzone.Web.Controllers
             _profileService = profileSrv;
             _mapper = mapper;
         }
+
+        // For test
+        [HttpGet("/[controller]/page{page}")]
+        public IActionResult Index(int page = 1, int pageSize = 5)
+        {
+            int count = _eventService.Events().Count();
+            var items = _eventService.Events(
+                skip: (page - 1) * pageSize,
+                take: pageSize
+                )
+                .AsEnumerable();
+
+            ViewData["take"] = pageSize;
+            ViewData["page"] = page;
+
+            return View(items);
+        }
+
+        // API endpoints:
 
         [HttpGet]
         public IActionResult Get(int page = 1, int pageSize = 20)
@@ -77,7 +96,7 @@ namespace Friendzone.Web.Controllers
             return Ok(items);
         }
 
-        [HttpGet("/{id:int}/details")]
+        [HttpGet("{id:int}/details")]
         public IActionResult Get(int id)
         {
             EventDTO ev = _eventService.Events(id);

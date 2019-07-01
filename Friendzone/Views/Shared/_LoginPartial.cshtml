@@ -1,0 +1,29 @@
+﻿@model Friendzone.Web.Models.LoginModel
+
+<div class="row pl-15 pr-15 ">
+    <div class="col pl-15 pr-15 mt-30">
+        <form asp-controller="Account" asp-action="Login">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Email" class="control-label"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Password" class="control-label"></label>
+                <input asp-for="Password" class="form-control" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Login" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+
+</div>
+<div class="row pl-15 pr-15">
+    <div class="col pl-15 pr-15">
+        No account yet? <a asp-controller="Account" asp-action="Register">Register now!</a>
+    </div>
+</div>
+

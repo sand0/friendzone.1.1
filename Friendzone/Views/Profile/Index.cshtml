@@ -1,23 +1,11 @@
 ﻿@model Friendzone.Web.Models.UserProfileViewModel
 
 @{
-    ViewData["Title"] = "View";
+    ViewData["Title"] = "User Profile";
 }
 
-<h2>View</h2>
+<h2>@ViewData["Title"]</h2>
 <div class="row">
-    <div class="col-sm-2">
-        @if (Model.AvatarUrl != null)
-        {
-            <img src="@Model.AvatarUrl" width="180" />
-
-        }
-        else
-        {
-            <img src="files/145842.png" width="180" />
-        }
-
-    </div>
     <div class="col-sm-10">
         <h4>UserProfileViewModel</h4>
         <hr />
