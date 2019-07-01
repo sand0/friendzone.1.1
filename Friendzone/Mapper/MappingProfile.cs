@@ -93,7 +93,8 @@ namespace Friendzone.Web.Mapper
                 //.ForMember(dest => dest.CityId, opt => opt.MapFrom(src => src.City.Id))
                 //.ForMember(dest => dest.City, opt => opt.MapFrom(src => src.City))
                 //.ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))
-                .ForMember(dest => dest.OwnerUserId, opt => opt.MapFrom(src => src.Owner.UserId));
+                //.ForMember(dest => dest.OwnerUserId, opt => opt.MapFrom(src => src.OwnerUserId))
+                .ForMember(dest => dest.Visitors, opt => opt.Ignore());
 
             CreateMap<EventDTO, EventDetailsViewModel>()
                 //.ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
