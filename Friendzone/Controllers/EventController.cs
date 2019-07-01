@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using AutoMapper;
 using Entities;
@@ -20,7 +21,8 @@ namespace Friendzone.Web.Controllers
         private IUserService _userService;
         private IProfileService _profileService;
         private IMapper _mapper;
-        
+
+
         public EventController(
             IEventService eventSrv,
             IUserService userSrv,
@@ -37,7 +39,40 @@ namespace Friendzone.Web.Controllers
         public IActionResult Get(int page = 1, int pageSize = 20)
         {
             int count = _eventService.Events().Count();
-            var items = _eventService.Events(skip: (page - 1) * pageSize, take: pageSize).AsEnumerable();
+            var items = _eventService.Events(
+                skip: (page - 1) * pageSize, 
+                take: pageSize
+                )
+                .AsEnumerable();
+
+            return Ok(items);
+        }
+
+        [HttpGet("My")]
+        public async Task<IActionResult> MyEvents(int page = 1, int pageSize = 20)
+        {
+            User currentUser = await _userService.GetCurrentUserAsync(HttpContext);
+
+            Expression<Func<Event, bool>> filter = (e => e.OwnerUserId == currentUser.Id);
+
+            int count = _eventService.Events(filter: filter).Count();
+
+            var items = _eventService.Events(
+                filter: filter,
+                skip: (page - 1) * pageSize, 
+                take: pageSize
+                )
+                .AsEnumerable();
+
+            return Ok(items);
+        }
+
+        [HttpGet("IGo")]
+        public async Task<IActionResult> IGoEvents(int page = 1, int pageSize = 20)
+        {
+            User currentUser = await _userService.GetCurrentUserAsync(HttpContext);
+
+            var items = _eventService.UserEvents(currentUser.Id);
 
             return Ok(items);
         }
@@ -53,7 +88,6 @@ namespace Friendzone.Web.Controllers
             model.Visitors = _mapper.Map<List<ProfileDTO>, List<UserProfilePreviewModel>>(ev.Visitors
                 .Select(x => _profileService.GetById(x)).ToList());
             
-
             return Ok(model);
         }
 

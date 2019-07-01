@@ -32,7 +32,7 @@ namespace Friendzone.Core.Services
             int? skip = null,
             int? take = null)
         {
-            
+
 
             var events = Db.EventRepository.Get(
                 filter: filter,
@@ -42,7 +42,25 @@ namespace Friendzone.Core.Services
 
             return _mapper.ProjectTo<EventDTO>(events);
         }
-        
+
+        public IEnumerable<EventDTO> UserEvents(string userId)
+        {
+            UserProfile userProfile = Db.ProfileRepository.Get(
+                filter: p => p.UserId == userId,
+                includeProperties: "ChosenEvents.Event"
+                ).FirstOrDefault();
+
+            if (userProfile == null || userProfile.ChosenEvents == null)
+            {
+                return new List<EventDTO>();
+            }
+
+            var items = userProfile.ChosenEvents.Select(x => x.Event);
+
+            return _mapper.Map<IEnumerable<Event>, IEnumerable<EventDTO>>(items);
+                
+
+        }
 
         public EventDTO Events(int id)
         {

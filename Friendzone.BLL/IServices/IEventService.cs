@@ -19,6 +19,7 @@ namespace Friendzone.Core.IServices
             int? take = null
             );
         EventDTO Events(int id);
+        IEnumerable<EventDTO> UserEvents(string userId);
 
         Task<OperationDetails> CreateEventAsync(EventDTO ev);
         Task<OperationDetails> EditEventAsync(EventDTO ev);
