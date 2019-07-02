@@ -25,6 +25,11 @@ namespace Friendzone.Core.Services
 
         public async Task<OperationDetails> CreateAsync(Category category)
         {
+            if (string.IsNullOrEmpty(category.Name) || category.Id != 0)
+            {
+                return new OperationDetails(false, "Incorrect data!", "");
+            }
+
             if (Db.CategoryRepository.All().Any(c => c.Name == category.Name))
             {
                 return new OperationDetails(false, "The same category is already exist in database", "");
@@ -71,7 +76,7 @@ namespace Friendzone.Core.Services
 
             var result = Db.CategoryRepository.Delete(category);
             await Db.SaveAsync();
-            return new OperationDetails(result, "Not found", "");
+            return new OperationDetails(result, "", "");
         }
     }
 }
