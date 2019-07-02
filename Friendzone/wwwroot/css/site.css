@@ -59,6 +59,21 @@ body {
     -webkit-border-radius: 50%;
 }
 
+.box {
+    width: 190px;
+    height: 190px;
+    overflow: hidden;
+    background: #fff;
+    border-radius: 50%;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+}
+
+.box img {
+    display: block;
+    height: 100%;
+    width: auto;        
+}
 
 .auth-buttons-wrapper {
     display: flex;
@@ -66,6 +81,7 @@ body {
     justify-content: space-around;
     margin-top: 30px
 }
+
 
 .avatar-wrapper {
     display: flex;

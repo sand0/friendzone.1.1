@@ -36,11 +36,16 @@ namespace Friendzone.Core.Services
 
             var events = Db.EventRepository.Get(
                 filter: filter,
+                includeProperties: "EventCategory.Category,",
                 orderBy: orderBy,
                 skip: skip,
                 take: take);
 
-            return _mapper.ProjectTo<EventDTO>(events);
+            var items = _mapper.ProjectTo<EventDTO>(events);
+
+            //items.
+
+            return items;
         }
 
         public IEnumerable<EventDTO> UserEvents(string userId)

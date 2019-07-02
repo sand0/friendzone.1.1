@@ -1,45 +1,55 @@
 ﻿@model Friendzone.Core.DTO.EventDTO
 
-<div class="col-lg-10">
+
+<!--Image for event-->
+<div class="col-lg-3">
+    <div class="circle" > 
+        <div class="box avatar-wrapper">
+            <img src="~/files/events/1535625669_59.jpg">
+        </div>
+    </div>
+</div>
+
+<div class="col-lg-7">
     <h4>@Model.Title</h4>
     <hr />
     <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Id)
-        </dt>
+
+        <dt>@Html.DisplayNameFor(model => model.DateFrom)</dt>
+        <dd>@(Model.DateFrom.ToShortDateString())</dd>
+
+        <dt>@Html.DisplayNameFor(model => model.DateTo)</dt>
+        <dd>@(Model.DateTo.Date.ToShortDateString())</dd>
+
+        <dt>@Html.DisplayNameFor(model => model.City)</dt>
+        <dd>@Html.DisplayFor(model => model.City.Name)</dd>
+
+        <dt>@Html.DisplayNameFor(model => model.Description)</dt>
+        <dd>@Html.DisplayFor(model => model.Description)</dd>
+
+        <dt>Categories</dt>
         <dd>
-            @Html.DisplayFor(model => model.Id)
+            | 
+            @foreach (var c in Model.CategoryNames)
+            {
+                @c <text> | </text>
+            }
+
         </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.DateFrom)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.DateFrom)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.DateTo)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.DateTo)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.CityId)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.CityId)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.OwnerUserId)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.OwnerUserId)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Description)
-        </dd>
+
+        <dt>Organized by</dt>
+        <dd>@Html.DisplayFor(model => model.OwnerUserId) (visitor preview component will be here)</dd>
+        
+        <dt>Visitors</dt>
+        @if (Model.Visitors.Count > 0)
+        {
+            <dd>@Model.Visitors.Count</dd>
+        }
+        else
+        {
+            <dd>You can be first visitor!</dd>
+        }
+
     </dl>
 </div>
 <div class="col-lg-2">

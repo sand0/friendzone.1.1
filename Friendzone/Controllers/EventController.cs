@@ -37,7 +37,7 @@ namespace Friendzone.Web.Controllers
 
         // For test
         [HttpGet("/[controller]/page{page}")]
-        public IActionResult Index(int page = 1, int pageSize = 5)
+        public IActionResult Index(int page = 1, int pageSize = 3)
         {
             int count = _eventService.Events().Count();
             var items = _eventService.Events(
