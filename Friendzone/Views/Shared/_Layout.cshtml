@@ -35,16 +35,18 @@
                     <li><a asp-area="" asp-controller="Admin" asp-action="Index">Admin page</a></li>
                 }
                 <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
-                @if (User.Identity.IsAuthenticated)
-                {
-                    <li><a href="~/event/page1">Events</a></li>
-                }
+                <li><a href="~/event/page1">Events</a></li>
                 <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
                 <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
+            </ul>
+            <ul class="nav navbar-nav pull-right">
+                <li><a asp-area="" asp-controller="Account" asp-action="Login">Login</a></li>
+                <li><a asp-area="" asp-controller="Account" asp-action="Register">Register</a></li>
             </ul>
         </div>
         
     </nav>
+    
 
     <partial name="_CookieConsentPartial" />
 
@@ -70,7 +72,7 @@
                     {
 
                         <div class="col">
-                            <partial name="_LoginPartial" />
+                            <!--<partial name="_LoginPartial" />-->
                         </div>
 
 
