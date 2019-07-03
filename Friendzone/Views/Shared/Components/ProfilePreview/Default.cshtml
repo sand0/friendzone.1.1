@@ -4,19 +4,21 @@
 <div class="row">
     <div class="col avatar-wrapper">
         <div class="circle">
-            @if (Model.AvaUrl != null)
-            {
-                <img src="@Model.AvaUrl" />
+            <div class="box avatar-wrapper">
+                @if (Model.AvaUrl != null)
+                {
+                    <img src="@Model.AvaUrl" />
 
-            }
-            else
-            {
-                <img src="~/files/145842.png" />
-            }
-
-        </div>
+                }
+                else
+                {
+                    <img src="~/files/145842.png" />
+                }
+            </div>
+            </div>
     </div>
 </div>
+
 
 <div class="auth-buttons-wrapper">
         <a class="btn btn-default btn-w-120" asp-controller="Profile" asp-action="ChangeAva">change avatar</a>
@@ -29,8 +31,15 @@
 <div class="pl-15">
     <b>@Model.Email</b>
 </div>
+
 <div class="pl-15">
-    <a asp-controller="Profile" asp-action="Index">My profile</a>
+    <hr />
+</div>
+<div class="pl-15">
+    <nav class="nav nav-pills nav-stacked">
+        <li><a asp-controller="Profile" asp-action="Index">My profile</a></li>
+        <li><a href="#">Some other link</a></li>
+    </nav>
 </div>
 <hr />
 <div class="pl-15">

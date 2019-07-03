@@ -35,8 +35,10 @@
                     <li><a asp-area="" asp-controller="Admin" asp-action="Index">Admin page</a></li>
                 }
                 <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
-                <li><a href="~/event/page1">Events</a></li>
-
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <li><a href="~/event/page1">Events</a></li>
+                }
                 <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
                 <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
             </ul>
