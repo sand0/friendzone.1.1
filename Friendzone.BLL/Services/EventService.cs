@@ -32,8 +32,6 @@ namespace Friendzone.Core.Services
             int? skip = null,
             int? take = null)
         {
-
-
             var events = Db.EventRepository.Get(
                 filter: filter,
                 includeProperties: "EventCategory.Category,",
@@ -42,8 +40,6 @@ namespace Friendzone.Core.Services
                 take: take);
 
             var items = _mapper.ProjectTo<EventDTO>(events);
-
-            //items.
 
             return items;
         }
@@ -78,16 +74,6 @@ namespace Friendzone.Core.Services
                 .Select(x => Db.CategoryRepository.Get(x.CategoryId).Name).ToList();
             eventDTO.Visitors = ev.Visitors
                 .Select(x => x.UserProfileId).ToList();
-
-            //var eventDTO = _mapper.Map<Event, EventDTO>(ev, opt => 
-            //{ opt.AfterMap((src, dest) 
-            //    => {
-            //        dest.CategoryNames = src.EventCategory
-            //            .Select(x => Db.CategoryRepository.Get(x.CategoryId).Name).ToList();
-            //        dest.Visitors = src.Visitors
-            //            .Select(val => val.UserProfileId).ToList();
-            //    });
-            //});
 
             return eventDTO;
         }

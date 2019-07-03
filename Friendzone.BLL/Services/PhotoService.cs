@@ -30,7 +30,6 @@ namespace Friendzone.Core.Services
         {
             Db = uow;
             _appEnvironment = appEnvironment;
-
         }
 
 

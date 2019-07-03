@@ -18,8 +18,6 @@ namespace Friendzone.Controllers
 
         public IActionResult About()
         {
-            ViewData["Message"] = "Description page.";
-
             return View();
         }
 
