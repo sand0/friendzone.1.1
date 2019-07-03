@@ -5,11 +5,13 @@ using System.Threading.Tasks;
 using Entities;
 using Friendzone.Core.Infrastructure;
 using Friendzone.Core.IServices;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Friendzone.Web.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class LocationsController : ControllerBase
@@ -28,7 +30,7 @@ namespace Friendzone.Web.Controllers
 
 
         //Methods for countries CRUD:
-
+        [AllowAnonymous]
         [HttpGet("[action]")]
         public IActionResult Countries()
         {
@@ -69,6 +71,7 @@ namespace Friendzone.Web.Controllers
 
         //Methods for cities CRUD:
 
+        [AllowAnonymous]
         [HttpGet("country:{countryId:int}/[action]")]
         public IActionResult Cities(int countryId)
         {

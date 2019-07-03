@@ -19,7 +19,7 @@ namespace Friendzone.Core.Services
             Db = uow;
         }
 
-        public IEnumerable<Category> GetAllCategories() => Db.CategoryRepository.All();
+        public IEnumerable<Category> GetAllCategories() => Db.CategoryRepository.Get();
 
         public Category Get(int id) => Db.CategoryRepository.Get(id);
 
@@ -30,7 +30,7 @@ namespace Friendzone.Core.Services
                 return new OperationDetails(false, "Incorrect data!", "");
             }
 
-            if (Db.CategoryRepository.All().Any(c => c.Name == category.Name))
+            if (Db.CategoryRepository.Get().Any(c => c.Name == category.Name))
             {
                 return new OperationDetails(false, "The same category is already exist in database", "");
             }

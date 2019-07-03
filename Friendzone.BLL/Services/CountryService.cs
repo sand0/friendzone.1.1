@@ -20,7 +20,7 @@ namespace Friendzone.Core.Services
         }
 
 
-        public IEnumerable<Country> GetCountries() => Db.CountryRepository.All();
+        public IEnumerable<Country> GetCountries() => Db.CountryRepository.Get();
 
         public Country GetByName(string name) => Db.CountryRepository.Get(c => c.Name == name).FirstOrDefault();
 

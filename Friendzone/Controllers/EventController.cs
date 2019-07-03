@@ -8,13 +8,14 @@ using Entities;
 using Friendzone.Core.DTO;
 using Friendzone.Core.IServices;
 using Friendzone.Web.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Friendzone.Web.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
-    //[ApiController]
     public class EventController : Controller
     {
         private IEventService _eventService;
@@ -35,7 +36,12 @@ namespace Friendzone.Web.Controllers
             _mapper = mapper;
         }
 
-        // For test
+        /*
+         * For razor views:
+         */
+
+        // GET: events/page1
+        [AllowAnonymous]
         [HttpGet("/[controller]/page{page}")]
         public IActionResult Index(int page = 1, int pageSize = 3)
         {
@@ -52,7 +58,10 @@ namespace Friendzone.Web.Controllers
             return View(items);
         }
 
-        // API endpoints:
+
+        /*
+         * API endpoints:
+         */
 
         [HttpGet]
         public IActionResult Get(int page = 1, int pageSize = 20)

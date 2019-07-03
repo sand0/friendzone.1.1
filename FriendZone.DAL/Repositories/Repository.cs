@@ -22,8 +22,9 @@ namespace Friendzone.DAL.Repositories
         }
 
 
-        public IQueryable<T> All() => Entities;
+        public IQueryable<T> Get() => Entities;
 
+        public T Get(int id) => Entities.SingleOrDefault(e => e.Id == id);
 
         public virtual IQueryable<T> Get(
             Expression<Func<T, bool>> filter = null,
@@ -57,9 +58,6 @@ namespace Friendzone.DAL.Repositories
         }
 
 
-        public T Get(int id) => Entities.SingleOrDefault(e => e.Id == id);
-
-
         public T Create(T entity)
         {
             if (entity == null)
@@ -79,7 +77,6 @@ namespace Friendzone.DAL.Repositories
                 throw new ArgumentNullException(nameof(entity));
             }
             _context.Entry(entity).State = EntityState.Modified;
-            //_context.SaveChanges();
             return entity;
         }
 
@@ -93,7 +90,6 @@ namespace Friendzone.DAL.Repositories
             if (Entities.Contains(entity))
             {
                 Entities.Remove(entity);
-                //_context.SaveChanges();
                 return true;
             }
             return false;

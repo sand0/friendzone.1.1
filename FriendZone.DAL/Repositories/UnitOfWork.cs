@@ -10,6 +10,7 @@ namespace Friendzone.DAL.Repositories
     public class UnitOfWork : IUnitOfWork
     {
         private readonly AppDbContext Db;
+        private bool disposed = false;
 
         private IUserProfileRepository _profileRepository;
         private ICountryRepository _countryRepository;
@@ -55,14 +56,14 @@ namespace Friendzone.DAL.Repositories
         public IEventRepository EventRepository =>
             _eventRepository ?? (_eventRepository = new EventRepository(Db));
 
+
         public void Dispose()
         {
             Dispose(true);
             GC.SuppressFinalize(this);
         }
 
-        private bool disposed = false;
-
+        
         public virtual void Dispose(bool disposing)
         {
             if (!this.disposed)

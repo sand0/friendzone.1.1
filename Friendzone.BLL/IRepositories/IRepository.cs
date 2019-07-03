@@ -8,7 +8,7 @@ namespace Friendzone.Core.IRepositories
 {
     public interface IRepository<T> where T : class
     {
-        IQueryable<T> All();
+        IQueryable<T> Get();
 
         IQueryable<T> Get(
             Expression<Func<T, bool>> filter = null,

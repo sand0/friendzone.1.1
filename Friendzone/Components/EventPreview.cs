@@ -42,10 +42,8 @@ namespace Friendzone.Web.Components
             // find categories:
             if (ev.CategoryIds == null)
             {
-                ev.CategoryNames = ev.CategoryIds.Select
-                    (
-                        x => _categoryService.Get(x).Name
-                    )
+                ev.CategoryNames = ev.CategoryIds
+                    .Select(id => _categoryService.Get(id).Name)
                     .ToList();
             }
 

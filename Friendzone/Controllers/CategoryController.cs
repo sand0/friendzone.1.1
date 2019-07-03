@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Friendzone.Web.Controllers
 {
-    //[Authorize]
+    [Authorize]
     [ApiController]
     [Route("api/[controller]")]
     public class CategoryController : Controller

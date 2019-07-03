@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Friendzone.Web.Controllers
 {
-    //[Authorize]
+    [Authorize]
     public class ProfileController : Controller
     {
         private IProfileService _profileService;
@@ -33,6 +33,11 @@ namespace Friendzone.Web.Controllers
             _mapper = mapper;
         }
 
+        /*
+         * For Razor pages
+         */
+
+        // GET: profile/
         public async Task<IActionResult> Index()
         {
             User currentUser = await _userService.GetCurrentUserAsync(HttpContext);
@@ -41,19 +46,8 @@ namespace Friendzone.Web.Controllers
 
             return View(viewModel);
         }
-
-        // for testing...
-
-        [HttpGet]
-        public async Task<IActionResult> ProfileInfo()
-        {
-            User currentUser = await _userService.GetCurrentUserAsync(HttpContext);
-            var profile = _profileService.GetById(currentUser.ProfileId);
-            return PartialView("_ProfilePartial", profile);
-        }
-
-
-        [HttpGet]
+        
+        // GET: profile/changeava
         public async Task<IActionResult> ChangeAva()
         {
             User currentUser = await _userService.GetCurrentUserAsync(HttpContext);
@@ -62,7 +56,9 @@ namespace Friendzone.Web.Controllers
             return View(model);
         }
         
-        // Endpoints for API
+        /*
+         *Endpoints for API
+         */
 
         [HttpGet("api/[controller]")]
         public IActionResult Get()

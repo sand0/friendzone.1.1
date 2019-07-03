@@ -20,7 +20,7 @@ namespace Friendzone.Core.Tests.Services.CategoryServices
         {
             var unitOfWork = new Mock<IUnitOfWork>();
             unitOfWork.Setup(x => x.CategoryRepository.Create(It.IsAny<Category>()));
-            unitOfWork.Setup(x => x.CategoryRepository.All())
+            unitOfWork.Setup(x => x.CategoryRepository.Get())
                 .Returns(new List<Category>()
                 {
                     new Category { Id = 1, Name = "NameIsExist" }

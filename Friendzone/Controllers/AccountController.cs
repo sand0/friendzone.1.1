@@ -19,8 +19,14 @@ namespace Friendzone.Web.Controllers
             _mapper = mapper;
         }
 
+        /*
+         *Actions for MVC:
+         */
+
+        // GET: account/login
         public IActionResult Login() => View();
 
+        // POST: account/login
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(LoginModel model)
@@ -36,14 +42,15 @@ namespace Friendzone.Web.Controllers
                 {
                     return RedirectToAction("Index", "Home");
                 }
-
             }
             ModelState.AddModelError("", "Email or Password is incorect!");
             return View(model);
         }
 
+        // GET: account/register
         public IActionResult Register() => View();
 
+        // POST: account/register
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Register(RegisterModel model)
@@ -59,13 +66,12 @@ namespace Friendzone.Web.Controllers
                     bool auth = await _userService.AuthenticateAsync(userDto);
                     return RedirectToAction("Index", "Home");
                 }
-
                 ModelState.AddModelError(operationDetails.Property, operationDetails.Message);
             }
             return View(model);
         }
 
-
+        // GET: account/logout
         public async Task<IActionResult> Logout()
         {
             await _userService.SignOutAsync();
@@ -74,7 +80,9 @@ namespace Friendzone.Web.Controllers
         }
 
 
-        // Endpoints for API
+        /* 
+         * Endpoints for API
+         */ 
 
         [HttpPost("api/[controller]/[action]")]
         public async Task<IActionResult> ApiLogin(LoginModel model)
@@ -96,7 +104,6 @@ namespace Friendzone.Web.Controllers
             return BadRequest(model);
         }
 
-
         [HttpPost("api/[controller]/[action]")]
         public async Task<IActionResult> ApiLogout()
         {
@@ -106,7 +113,9 @@ namespace Friendzone.Web.Controllers
         }
 
 
-        // Admin seeder
+        /*
+         * Admin seeder
+         */
 
         private async Task AdminSeedAsync()
         {
